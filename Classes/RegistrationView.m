@@ -8,6 +8,7 @@
 #import "CellSlider.h"
 #import "SourceCell.h"
 #import "Constants.h"
+#import "Util.h"
 
 @implementation RegistrationView
 
@@ -93,6 +94,15 @@
 
 
 - (void)viewWillAppear:(BOOL)animated{
+	[super viewWillAppear:animated];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; 
+	firstNameTextField.text =  [defaults objectForKey:DEFAULTKEY_FIRSTNAME];
+	lastNameTextField.text  =  [defaults objectForKey:DEFAULTKEY_LASTNAME];
+	emailTextField.text =  [defaults objectForKey:DEFAULTKEY_EMAIL];
+	zipTextField.text =  [defaults objectForKey:DEFAULTKEY_ZIP];
+	isAgree =  [(NSNumber*)[defaults objectForKey:DEFAULTKEY_AGREE] boolValue];
+	[self.tableView reloadData];
+	
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -470,32 +480,26 @@
 - (void)doSave:(id)sender
 {
 	NSLog(@"Submit was clicked");
-	/*
-	NSString *name = nameTextField.text;
-	NSString *pollingPlace = pollingPlaceTextField.text;
-	NSString *rating  = [NSString stringWithFormat:@"%.0f", ratingSlider.value];
-	NSString *comment = commentTextView.text;
-	NSString *soundfile = [messageAudioCell.soundFileURL path];
+	if (!isAgree) { 
+		[Util handleMsg:@"Please accept the Terms." withTitle:@"Error"];
+		return;
+	}
+	if (!([firstNameTextField.text length] >0 && [lastNameTextField.text length] >0)){
+		[Util handleMsg:@"Please enter your first name and last name" withTitle:@"Error"];
+		return;
+	}
+
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; 
+	[defaults setObject:firstNameTextField.text forKey:DEFAULTKEY_FIRSTNAME];
+	[defaults setObject:lastNameTextField.text forKey:DEFAULTKEY_LASTNAME];
+	[defaults setObject:emailTextField.text forKey:DEFAULTKEY_EMAIL];
+	[defaults setObject:zipTextField.text forKey:DEFAULTKEY_ZIP];
+	[defaults setObject:[NSNumber numberWithBool:isAgree] forKey:DEFAULTKEY_AGREE];
 	
-	NSString *tags = [[NSMutableString alloc] init];
-	if (machine) tags = [tags stringByAppendingString:@"#machine "];
-	if (registration) tags = [tags stringByAppendingString:@"#registration "];
-	if (challenges) tags = [tags stringByAppendingString:@"#challenges "];
-	if (hava) tags = [tags stringByAppendingString:@"#hava "];
-	if (ballots) tags = [tags stringByAppendingString:@"#ballots"];
-	
-	NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-	if (name) [params setValue:name forKey:@"reporter[name]"];
-	if (pollingPlace) [params setValue:pollingPlace forKey:@"polling_place[name]"];
-	if (waitingTime) [params setValue:waitingTime forKey:@"report[wait_time]"];
-	if (rating) [params setValue:rating forKey:@"report[rating]"];
-	if (comment) [params setValue:comment forKey:@"report[text]"];
-	if (tags) [params setValue:tags forKey:@"report[tag_string]"];
-	if (messageAudioCell.didRecording && soundfile) [params setValue:soundfile forKey:@"soundfile"];
+	[defaults synchronize];
 	
 	[self dismissModalViewControllerAnimated:YES];
-	[(Vote_ReportViewController *)self.parentViewController sendReportWith:params];
-	 */
+		
 }
 
 

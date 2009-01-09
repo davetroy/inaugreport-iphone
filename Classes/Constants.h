@@ -100,6 +100,14 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 #define DEFAULTKEY_BLOGID @"GotCatch_blogid"
 #define DEFAULTKEY_IMGSIZE @"GotCatch_imagesize"
 
+//User Profile
+#define DEFAULTKEY_FIRSTNAME @"InaugReport_firstName"
+#define DEFAULTKEY_LASTNAME @"InaugReport_lastName"
+#define DEFAULTKEY_EMAIL @"InaugReport_Email"
+#define DEFAULTKEY_ZIP @"InaugReport_Zip"
+#define DEFAULTKEY_AGREE @"InaugReport_Agree"
+
+
 
 // the amount of vertical shift upwards keep the text field in view as the keyboard appears
 #define kOFFSET_FOR_KEYBOARD                    180.0

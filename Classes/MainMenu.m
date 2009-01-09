@@ -10,6 +10,8 @@
 #import "PhotoReportView.h"
 #import "AudioReportView.h"
 #import "TextReportView.h"
+#import "RegistrationView.h"
+#import "Constants.h"
 
 
 @implementation MainMenu
@@ -36,6 +38,15 @@
 	reportSubmitView.hidden = YES;
 }
 
+- (void)viewDidAppear:(BOOL)a{
+	[super viewDidAppear:a];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; 
+	NSString *firstName =  [defaults objectForKey:DEFAULTKEY_FIRSTNAME];
+	NSString *lastName  =  [defaults objectForKey:DEFAULTKEY_LASTNAME];
+	if (!([firstName length]>0 && [lastName length]>0)) [self doRegister];
+	
+}
+
 /*
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -43,6 +54,12 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
+
+- (IBAction) doRegister{
+	if (registerView==nil) registerView = [[[RegistrationView alloc] initWithStyle:UITableViewStyleGrouped] retain];
+	[self presentModalViewController:registerView animated:YES];	
+}  	
+
 
 - (IBAction) doAudioReport{
 	if (audioReportView==nil) audioReportView = [[[AudioReportView alloc] init] retain];
@@ -70,6 +87,10 @@
 
 
 - (void)dealloc {
+	[registerView release];
+	[photoReportView release];
+	[textReportView release];
+	[audioReportView release];
     [super dealloc];
 }
 
