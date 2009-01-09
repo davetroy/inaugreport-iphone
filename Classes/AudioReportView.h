@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Post.h"
-#import "CellAudio.h"
+#import "AudioView.h"
 
 
 @interface AudioReportView : UIViewController {
-	CellAudio *audioCell;
+	AudioView *audioCell;
 	BOOL isNewReport;
 	Post *myPost;
 	
