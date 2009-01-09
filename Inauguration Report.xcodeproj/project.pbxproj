@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		051DDA0C0F17D06B00D98CA4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 051DDA0B0F17D06B00D98CA4 /* Default.png */; };
 		1D3623260D0F684500981E51 /* Inauguration_ReportAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* Inauguration_ReportAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -51,8 +52,6 @@
 		51C1C2130F1702170094456B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51C1C2120F1702170094456B /* MainMenu.xib */; };
 		51C1C2190F1703430094456B /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C1C2180F1703430094456B /* MainMenu.m */; };
 		51C1C2420F1705E90094456B /* RegistrationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C1C2410F1705E90094456B /* RegistrationView.m */; };
-		51C5AE940F17E66F002BBBA8 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 51C5AE930F17E66F002BBBA8 /* Default.png */; };
-		51C5AE960F17E67E002BBBA8 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 51C5AE950F17E67E002BBBA8 /* Icon.png */; };
 		51C5AEA80F17EAD3002BBBA8 /* AudioView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C5AEA60F17EAD3002BBBA8 /* AudioView.m */; };
 		51C5B0380F17FB11002BBBA8 /* submit_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 51C5B0370F17FB11002BBBA8 /* submit_photo.png */; };
 		51C5B03A0F17FB1A002BBBA8 /* submit_audio.png in Resources */ = {isa = PBXBuildFile; fileRef = 51C5B0390F17FB1A002BBBA8 /* submit_audio.png */; };
@@ -60,6 +59,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		051DDA0B0F17D06B00D98CA4 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* Inauguration_ReportAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Inauguration_ReportAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* Inauguration_ReportAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Inauguration_ReportAppDelegate.m; sourceTree = "<group>"; };
@@ -226,6 +226,7 @@
 				51A039850F17263B0084BE1A /* TextReportView.xib */,
 				51C1C2120F1702170094456B /* MainMenu.xib */,
 				28AD73870D9D96C1002E5188 /* MainWindow.xib */,
+				051DDA0B0F17D06B00D98CA4 /* Default.png */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 			);
 			name = Resources;
