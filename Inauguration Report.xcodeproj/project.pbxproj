@@ -414,6 +414,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sze Wong";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -425,6 +426,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = InaugReport;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5C47A760-DF91-4D03-B0C7-81AAFE639463";
 			};
 			name = Debug;
 		};
