@@ -93,3 +93,15 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 #define kUIAudioCellRowHeight 90.0
 #define kUISliderCellRowHeight	 60.0
 
+#define DEFAULTKEY_USERNAME @"GotCatch_username"
+#define DEFAULTKEY_PASSWORD @"GotCatch_password"
+#define DEFAULTKEY_URL @"GotCatch_url"
+#define DEFAULTKEY_XMLRPC @"GotCatch_xmlrpc"
+#define DEFAULTKEY_BLOGID @"GotCatch_blogid"
+#define DEFAULTKEY_IMGSIZE @"GotCatch_imagesize"
+
+
+// the amount of vertical shift upwards keep the text field in view as the keyboard appears
+#define kOFFSET_FOR_KEYBOARD                    180.0
+
+

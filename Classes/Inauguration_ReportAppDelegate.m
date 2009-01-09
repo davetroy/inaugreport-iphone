@@ -2,37 +2,44 @@
 //  Inauguration_ReportAppDelegate.m
 //  Inauguration Report
 //
-//  Created by David Troy on 1/6/09.
-//  Copyright Popvox LLC 2009. All rights reserved.
+//  Created by Sze Wong on 1/8/09.
+//  Copyright Zerion Consulting 2009. All rights reserved.
 //
 
 #import "Inauguration_ReportAppDelegate.h"
-#import "RootViewController.h"
 
 
 @implementation Inauguration_ReportAppDelegate
 
 @synthesize window;
-@synthesize navigationController;
+@synthesize tabBarController;
 
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	
-	// Configure and show the window
-	[window addSubview:[navigationController view]];
-	[window makeKeyAndVisible];
+    
+    // Add the tab bar controller's current view as a subview of the window
+    [window addSubview:tabBarController.view];
 }
 
 
-- (void)applicationWillTerminate:(UIApplication *)application {
-	// Save data if appropriate
+/*
+// Optional UITabBarControllerDelegate method
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
 }
+*/
+
+/*
+// Optional UITabBarControllerDelegate method
+- (void)tabBarController:(UITabBarController *)tabBarController didEndCustomizingViewControllers:(NSArray *)viewControllers changed:(BOOL)changed {
+}
+*/
 
 
 - (void)dealloc {
-	[navigationController release];
-	[window release];
-	[super dealloc];
+    [tabBarController release];
+    [window release];
+    [super dealloc];
 }
 
 @end
+

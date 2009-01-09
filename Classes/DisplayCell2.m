@@ -71,6 +71,7 @@ NSString *kDisplayCell2_ID = @"DisplayCell2_ID";
 		nameLabel.textColor = [UIColor blueColor];
 		nameLabel.highlightedTextColor = [UIColor blackColor];
 		nameLabel.font = [UIFont boldSystemFontOfSize:12];
+		nameLabel.textAlignment = UITextAlignmentCenter;
 		[self.contentView addSubview:nameLabel];
 	}
 	return self;

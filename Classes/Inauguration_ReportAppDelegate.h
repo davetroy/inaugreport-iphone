@@ -2,20 +2,18 @@
 //  Inauguration_ReportAppDelegate.h
 //  Inauguration Report
 //
-//  Created by David Troy on 1/6/09.
-//  Copyright Popvox LLC 2009. All rights reserved.
+//  Created by Sze Wong on 1/8/09.
+//  Copyright Zerion Consulting 2009. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface Inauguration_ReportAppDelegate : NSObject <UIApplicationDelegate> {
-    
+@interface Inauguration_ReportAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
-    UINavigationController *navigationController;
+    UITabBarController *tabBarController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
+@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
 
 @end
-

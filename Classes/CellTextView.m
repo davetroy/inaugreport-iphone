@@ -91,6 +91,7 @@ NSString* kCellTextView_ID = @"CellTextView_ID";
 									  contentRect.size.width - (kInsertValue*2),
 									  contentRect.size.height - (kInsertValue*2));
 	}
+	
 }
 
 - (void)dealloc
