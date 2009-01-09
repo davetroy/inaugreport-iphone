@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface Inauguration_ReportAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
+@class MainMenu;
+
+@interface Inauguration_ReportAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-    UITabBarController *tabBarController;
+	MainMenu   *viewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet UITabBarController *tabBarController;
+@property (nonatomic, retain) IBOutlet MainMenu *viewController;
 
 @end
