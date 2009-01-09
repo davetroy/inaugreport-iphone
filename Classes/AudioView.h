@@ -1,5 +1,5 @@
 //
-//  CellAudio.h
+//  AudioView.h
 //  Vote Report
 //
 //  Created by David Troy on 10/27/08.
@@ -13,7 +13,7 @@
 
 extern NSString *kCellAudio_ID;
 
-@interface CellAudio : UITableViewCell {
+@interface AudioView : UIView {
 	AudioRecorder				*audioRecorder;
 	AudioPlayer					*audioPlayer;
 	NSURL						*soundFileURL;

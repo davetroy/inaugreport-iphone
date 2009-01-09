@@ -20,7 +20,6 @@
 		51A039700F1725C40084BE1A /* AudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A0395F0F1725C40084BE1A /* AudioPlayer.m */; };
 		51A039710F1725C40084BE1A /* AudioQueueObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A039610F1725C40084BE1A /* AudioQueueObject.m */; };
 		51A039720F1725C40084BE1A /* AudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A039630F1725C40084BE1A /* AudioRecorder.m */; };
-		51A039730F1725C40084BE1A /* CellAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A039650F1725C40084BE1A /* CellAudio.m */; };
 		51A039740F1725C40084BE1A /* CellButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A039670F1725C40084BE1A /* CellButton.m */; };
 		51A039750F1725C40084BE1A /* CellPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A039690F1725C40084BE1A /* CellPicker.m */; };
 		51A039760F1725C40084BE1A /* CellSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 51A0396B0F1725C40084BE1A /* CellSlider.m */; };
@@ -54,6 +53,9 @@
 		51C1C2130F1702170094456B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51C1C2120F1702170094456B /* MainMenu.xib */; };
 		51C1C2190F1703430094456B /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C1C2180F1703430094456B /* MainMenu.m */; };
 		51C1C2420F1705E90094456B /* RegistrationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C1C2410F1705E90094456B /* RegistrationView.m */; };
+		51C5AE940F17E66F002BBBA8 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 51C5AE930F17E66F002BBBA8 /* Default.png */; };
+		51C5AE960F17E67E002BBBA8 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 51C5AE950F17E67E002BBBA8 /* Icon.png */; };
+		51C5AEA80F17EAD3002BBBA8 /* AudioView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C5AEA60F17EAD3002BBBA8 /* AudioView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,8 +79,6 @@
 		51A039610F1725C40084BE1A /* AudioQueueObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioQueueObject.m; path = Classes/AudioQueueObject.m; sourceTree = "<group>"; };
 		51A039620F1725C40084BE1A /* AudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioRecorder.h; path = Classes/AudioRecorder.h; sourceTree = "<group>"; };
 		51A039630F1725C40084BE1A /* AudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AudioRecorder.m; path = Classes/AudioRecorder.m; sourceTree = "<group>"; };
-		51A039640F1725C40084BE1A /* CellAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CellAudio.h; path = Classes/CellAudio.h; sourceTree = "<group>"; };
-		51A039650F1725C40084BE1A /* CellAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CellAudio.m; path = Classes/CellAudio.m; sourceTree = "<group>"; };
 		51A039660F1725C40084BE1A /* CellButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CellButton.h; path = Classes/CellButton.h; sourceTree = "<group>"; };
 		51A039670F1725C40084BE1A /* CellButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CellButton.m; path = Classes/CellButton.m; sourceTree = "<group>"; };
 		51A039680F1725C40084BE1A /* CellPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CellPicker.h; path = Classes/CellPicker.h; sourceTree = "<group>"; };
@@ -134,6 +134,10 @@
 		51C1C2180F1703430094456B /* MainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenu.m; sourceTree = "<group>"; };
 		51C1C2400F1705E90094456B /* RegistrationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationView.h; sourceTree = "<group>"; };
 		51C1C2410F1705E90094456B /* RegistrationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationView.m; sourceTree = "<group>"; };
+		51C5AE930F17E66F002BBBA8 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		51C5AE950F17E67E002BBBA8 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		51C5AEA60F17EAD3002BBBA8 /* AudioView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioView.m; sourceTree = "<group>"; };
+		51C5AEA70F17EAD3002BBBA8 /* AudioView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioView.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -157,6 +161,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				51C5AEA60F17EAD3002BBBA8 /* AudioView.m */,
+				51C5AEA70F17EAD3002BBBA8 /* AudioView.h */,
 				51A03A680F1738B10084BE1A /* ReportListView.m */,
 				51A03A690F1738B10084BE1A /* ReportListView.h */,
 				1D3623240D0F684500981E51 /* Inauguration_ReportAppDelegate.h */,
@@ -258,8 +264,6 @@
 				51A039610F1725C40084BE1A /* AudioQueueObject.m */,
 				51A039620F1725C40084BE1A /* AudioRecorder.h */,
 				51A039630F1725C40084BE1A /* AudioRecorder.m */,
-				51A039640F1725C40084BE1A /* CellAudio.h */,
-				51A039650F1725C40084BE1A /* CellAudio.m */,
 				51A039660F1725C40084BE1A /* CellButton.h */,
 				51A039670F1725C40084BE1A /* CellButton.m */,
 				51A039680F1725C40084BE1A /* CellPicker.h */,
@@ -301,7 +305,9 @@
 		51A03B320F1742680084BE1A /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				051DDA0D0F17D08000D98CA4 /* Icon.png */,
+				51C5AE950F17E67E002BBBA8 /* Icon.png */,
+				51C5AE930F17E66F002BBBA8 /* Default.png */,
+Report.xcodeproj/project.pbxproj
 				51A03CF80F1756C90084BE1A /* soundbar_mono.png */,
 				51A03CF90F1756C90084BE1A /* soundbar_plate_mono.png */,
 				51A03B780F1745250084BE1A /* txt_entry.png */,
@@ -366,6 +372,7 @@
 				51A03CFB0F1756C90084BE1A /* soundbar_plate_mono.png in Resources */,
 				051DDA0C0F17D06B00D98CA4 /* Default.png in Resources */,
 				051DDA0E0F17D08000D98CA4 /* Icon.png in Resources */,
+Report.xcodeproj/project.pbxproj
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -383,7 +390,6 @@
 				51A039700F1725C40084BE1A /* AudioPlayer.m in Sources */,
 				51A039710F1725C40084BE1A /* AudioQueueObject.m in Sources */,
 				51A039720F1725C40084BE1A /* AudioRecorder.m in Sources */,
-				51A039730F1725C40084BE1A /* CellAudio.m in Sources */,
 				51A039740F1725C40084BE1A /* CellButton.m in Sources */,
 				51A039750F1725C40084BE1A /* CellPicker.m in Sources */,
 				51A039760F1725C40084BE1A /* CellSlider.m in Sources */,
@@ -404,6 +410,7 @@
 				51A03A8A0F1739FB0084BE1A /* BlogProxy.m in Sources */,
 				51A03A8B0F1739FB0084BE1A /* BlogThread.m in Sources */,
 				51A03A8E0F173A0D0084BE1A /* Util.m in Sources */,
+				51C5AEA80F17EAD3002BBBA8 /* AudioView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +421,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sze Wong";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -425,6 +433,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = InaugReport;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5C47A760-DF91-4D03-B0C7-81AAFE639463";
 			};
 			name = Debug;
 		};

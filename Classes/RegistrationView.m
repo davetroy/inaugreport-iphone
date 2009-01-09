@@ -6,7 +6,6 @@
 #import "CellButton.h"
 #import "CellPicker.h"
 #import "CellSlider.h"
-#import "CellAudio.h"
 #import "SourceCell.h"
 #import "Constants.h"
 
@@ -78,6 +77,18 @@
 
 - (void)awakeFromNib {
 	[self initWithStyle:UITableViewStyleGrouped];
+	//self.tableView.backgroundColor = [UIColor blackColor];
+	
+	/*
+	//Create a background
+	UIImage *image = [UIImage imageNamed:@"Default.png"];
+	UIImageView *imageView = [[[UIImageView alloc] initWithImage:image] autorelease];
+	imageView.contentMode = UIViewContentModeScaleAspectFit;	
+	[self.view addSubview:imageView];
+	
+	//Now bring the table back to front
+	[self.view bringSubviewToFront:self.tableView];
+	 */
 }
 
 

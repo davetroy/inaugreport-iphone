@@ -1,5 +1,5 @@
 //
-//  CellAudio.m
+//  AudioView.m
 //  Vote Report
 //
 //  Created by David Troy on 10/27/08.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#import "CellAudio.h"
+#import "AudioView.h"
 #import "Constants.h"
 
 #define kLevelMeterLeft		29
@@ -25,7 +25,7 @@ void interruptionListenerCallback (
 ) {
 	// This callback, being outside the implementation block, needs a reference 
 	//	to the CellAudio object
-	CellAudio *cell = (CellAudio *) inUserData;
+	AudioView *cell = (AudioView *) inUserData;
 	
 	if (interruptionState == kAudioSessionBeginInterruption) {
 		
@@ -50,7 +50,7 @@ void interruptionListenerCallback (
 // cell identifier for this custom cell
 NSString *kCellAudio_ID = @"CellAudio_ID";
 
-@implementation CellAudio
+@implementation AudioView
 
 @synthesize audioPlayer;			// the playback audio queue object
 @synthesize audioRecorder;			// the recording audio queue object
@@ -71,8 +71,8 @@ NSString *kCellAudio_ID = @"CellAudio_ID";
 @synthesize interruptedOnPlayback;	// this allows playback to resume when an interruption ends. this app does not resume a recording for the user.
 @synthesize didRecording;
 
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
-    if (self = [super initWithFrame:frame reuseIdentifier:reuseIdentifier]) {
+- (id)initWithFrame:(CGRect)frame  {
+    if (self = [super initWithFrame:frame ]) {
 		// this app uses a fixed file name at a fixed location, so it makes sense to set the name and 
 		// URL here.
 		NSArray *filePaths =	NSSearchPathForDirectoriesInDomains (
@@ -124,15 +124,15 @@ NSString *kCellAudio_ID = @"CellAudio_ID";
 		playButton.frame = CGRectMake(210, 10, 70, 30);
 		[playButton addTarget:self action:@selector(playOrStop:) forControlEvents:UIControlEventTouchUpInside];
 		[self.playButton setEnabled:NO];
-		[self.contentView addSubview:playButton];
+		[self addSubview:playButton];
 
 		recordButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 		[recordButton setTitle:@"Record" forState:UIControlStateNormal];
 		recordButton.frame = CGRectMake(210, 50, 70, 30);
 		[recordButton addTarget:self action:@selector(recordOrStop:) forControlEvents:UIControlEventTouchUpInside];
-		[self.contentView addSubview:recordButton];
+		[self addSubview:recordButton];
 		
-		[self addBargraphToView:self.contentView];
+		[self addBargraphToView:self];
 
     }
     return self;
@@ -450,17 +450,6 @@ NSString *kCellAudio_ID = @"CellAudio_ID";
 	levelMeter.bounds		= CGRectMake (0, 0, 0, kLevelMeterHeight);
 	peakLevelMeter.frame	= CGRectMake (kLevelMeterLeft, kLevelMeterTop, 3, kLevelMeterHeight);
 	peakLevelMeter.bounds	= CGRectMake (0, 0, 0, kLevelMeterHeight);
-}
-
-//////////
-// Standard table cell view stuff from here down
-//////////
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 
