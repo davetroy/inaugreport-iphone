@@ -29,6 +29,22 @@ static BlogProxy *si = nil;
 }
 
 - (id)sendPostToServer:(Post *)post{
+	//Text Report
+	//Title : post.title
+	//Body  : post.description
+	//post.image == nil
+	
+	//Photo Report
+	//Caption : post.title
+	//Photo   : post.image
+	//post.description == nil
+	
+	//Audio Report
+	//Caption : @"Audio Report"
+	//Sound file : [root path]/[post.primaryKey].caf
+	//post.description = sound path. //For now.
+	
+	
 	return nil;
 }
 
