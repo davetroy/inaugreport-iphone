@@ -6,11 +6,14 @@
 //  Copyright 2009 Zerion Consulting. All rights reserved.
 //
 
+#import "Inauguration_ReportAppDelegate.h"
 #import "MainMenu.h"
 #import "PhotoReportView.h"
 #import "AudioReportView.h"
 #import "TextReportView.h"
 #import "RegistrationView.h"
+#import "CreditView.h"
+#import "ReportListView.h"
 #import "Constants.h"
 
 
@@ -36,6 +39,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	reportSubmitView.hidden = YES;
+	
+	
 }
 
 - (void)viewDidAppear:(BOOL)a{
@@ -56,7 +61,7 @@
 */
 
 - (IBAction) doRegister{
-	if (registerView==nil) registerView = [[[RegistrationView alloc] initWithStyle:UITableViewStyleGrouped] retain];
+	if (registerView==nil) registerView = [[[RegistrationView alloc] init] retain];
 	[self presentModalViewController:registerView animated:YES];	
 }  	
 
@@ -85,8 +90,37 @@
     // Release anything that's not essential, such as cached data
 }
 
+- (IBAction) flipCredit{
+	if (creditView==nil) {
+		creditView = [[[CreditView alloc] init] retain];
+		((CreditView*)creditView).mainMenu = self;
+	}
+	
+	
+	UIWindow *window = ((Inauguration_ReportAppDelegate *)[[UIApplication sharedApplication] delegate]).window;
+	
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDuration:0.7];
+	[UIView setAnimationTransition: ([self.view superview] ? UIViewAnimationTransitionFlipFromLeft : UIViewAnimationTransitionFlipFromRight) forView:window cache:YES];
+	
+	if ([self.view superview]){
+		[self.view removeFromSuperview];
+		[window addSubview:creditView.view];
+	} else {
+		[creditView.view removeFromSuperview];
+		[window addSubview:self.view];
+	}
+	
+	[UIView commitAnimations];
+    
+}
+
+
+
 
 - (void)dealloc {
+	[reportListView release];
+	[creditView release];
 	[registerView release];
 	[photoReportView release];
 	[textReportView release];

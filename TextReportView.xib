@@ -46,7 +46,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">Default.png</string>
+							<string key="NSResourceName">inaug_report_no_seal_.png</string>
 						</object>
 					</object>
 					<object class="IBUITextView" id="623230737">
@@ -106,10 +106,11 @@
 					<object class="IBUIButton" id="686135219">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 403}, {130, 37}}</string>
+						<string key="NSFrame">{{20, 404}, {130, 36}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+						<bool key="IBUISelected">YES</bool>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<object class="NSFont" key="IBUIFont" id="855006411">
@@ -117,16 +118,22 @@
 							<double key="NSSize">1.500000e+01</double>
 							<int key="NSfFlags">16</int>
 						</object>
-						<int key="IBUIButtonType">1</int>
-						<string key="IBUIHighlightedTitle">Submit</string>
-						<string key="IBUIDisabledTitle">Submit</string>
-						<string key="IBUISelectedTitle">Submit</string>
-						<string key="IBUINormalTitle">Submit</string>
+						<string key="IBUIHighlightedTitle"/>
+						<string key="IBUIDisabledTitle"/>
+						<string key="IBUISelectedTitle"/>
+						<string key="IBUINormalTitle"/>
 						<reference key="IBUIHighlightedTitleColor" ref="388915504"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 						</object>
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="75056438">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">submit.png</string>
+						</object>
+						<reference key="IBUIDisabledImage" ref="75056438"/>
+						<reference key="IBUISelectedImage" ref="75056438"/>
+						<reference key="IBUINormalImage" ref="75056438"/>
 					</object>
 					<object class="IBUIButton" id="1064761603">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -138,16 +145,22 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<reference key="IBUIFont" ref="855006411"/>
-						<int key="IBUIButtonType">1</int>
-						<string key="IBUIHighlightedTitle">Cancel</string>
-						<string key="IBUIDisabledTitle">Cancel</string>
-						<string key="IBUISelectedTitle">Cancel</string>
-						<string key="IBUINormalTitle">Cancel</string>
+						<string key="IBUIHighlightedTitle"/>
+						<string key="IBUIDisabledTitle"/>
+						<string key="IBUISelectedTitle"/>
+						<string key="IBUINormalTitle"/>
 						<reference key="IBUIHighlightedTitleColor" ref="388915504"/>
 						<object class="NSColor" key="IBUINormalTitleColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 						</object>
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="263649134">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">cancel.png</string>
+						</object>
+						<reference key="IBUIDisabledImage" ref="263649134"/>
+						<reference key="IBUISelectedImage" ref="263649134"/>
+						<reference key="IBUINormalImage" ref="263649134"/>
 					</object>
 					<object class="IBUILabel" id="216321045">
 						<reference key="NSNextResponder" ref="191373211"/>

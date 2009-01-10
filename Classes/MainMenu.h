@@ -18,6 +18,8 @@
 	UIViewController *audioReportView;
 	UIViewController *textReportView;
 	UIViewController *registerView;
+	UIViewController *creditView;
+	UIViewController *reportListView;
 	
 
 }
@@ -25,7 +27,7 @@
 - (IBAction) doAudioReport;
 - (IBAction) doPhotoReport;
 - (IBAction) doTextReport;
-
 - (IBAction) doRegister;
+- (IBAction) flipCredit;
 
 @end

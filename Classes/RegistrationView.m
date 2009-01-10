@@ -12,6 +12,8 @@
 
 @implementation RegistrationView
 
+@synthesize tableView;
+
 #pragma mark
 #pragma mark UITextField - rounded
 #pragma mark
@@ -60,8 +62,8 @@
 #pragma mark
 - (UIButton *)createUIButton
 {
-	UIButton *returnButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-	[returnButton setTitle:@"Save" forState:UIControlStateNormal];
+	UIButton *returnButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[returnButton setImage:[UIImage imageNamed:@"save.png"] forState:UIControlStateNormal];
 	[returnButton addTarget:self action:@selector(doSave:) forControlEvents:UIControlEventTouchUpInside];
 	
 	//	UIImage *buttonBackground = [UIImage imageNamed:@"whiteButton.png"];
@@ -76,21 +78,6 @@
 	return returnButton;
 }
 
-- (void)awakeFromNib {
-	[self initWithStyle:UITableViewStyleGrouped];
-	//self.tableView.backgroundColor = [UIColor blackColor];
-	
-	/*
-	//Create a background
-	UIImage *image = [UIImage imageNamed:@"Default.png"];
-	UIImageView *imageView = [[[UIImageView alloc] initWithImage:image] autorelease];
-	imageView.contentMode = UIViewContentModeScaleAspectFit;	
-	[self.view addSubview:imageView];
-	
-	//Now bring the table back to front
-	[self.view bringSubviewToFront:self.tableView];
-	 */
-}
 
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -112,6 +99,7 @@
 // Implement viewDidLoad to do additional setup after loading the view.
 - (void)viewDidLoad {
     [super viewDidLoad];
+	self.tableView.backgroundColor = [UIColor clearColor];
 	firstNameTextField = [[self createTextField_Rounded] retain];
 	lastNameTextField = [[self createTextField_Rounded] retain];
 	emailTextField = [[self createTextField_Rounded] retain];
@@ -131,14 +119,14 @@
 ///////////////////////////////////////////////////////////
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tv {
-    return 6; 
+    return 7; 
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	CGFloat result;
-	if (indexPath.section==4 && indexPath.row==0) result = kUITextViewCellRowHeight; //Agreement
-	else if (indexPath.section==4 && indexPath.row==1) result = kUIRowHeight; //I Agree
+	if (indexPath.section==5 && indexPath.row==0) result = kUITextViewCellRowHeight; //Agreement
+	else if (indexPath.section==5 && indexPath.row==1) result = kUIRowHeight; //I Agree
 	else if (indexPath.row==1) result = kUIRowLabelHeight; //All other row 1
 	else result = kUIRowHeight;
 	
@@ -150,22 +138,25 @@
 {
 	int num = 0;
 	switch (section) {
-		case 0: //First Name
+		case 0: //Heading
+			num=0;
+			break;
+		case 1: //First Name
 			num=2;
 			break;
-		case 1: //Last Name
+		case 2: //Last Name
 			num=2;
 			break;
-		case 2: //Email
+		case 3: //Email
 			num=2;
 			break;
-		case 3: //Zip
+		case 4: //Zip
 			num=2;
 			break;
-		case 4: //Agreement
+		case 5: //Agreement
 			num=2;
 			break;
-		case 5: //Save
+		case 6: //Save
 			num=1;
 			break;
 		default:
@@ -271,43 +262,43 @@
 {
 	UITableViewCell *cell = nil;
 	switch (section) {
-		case 0: //First Name
+		case 1: //First Name
 			cell = [self obtainTableTextFieldCellForRow:row];
 			if (row==0) {
 				((CellTextField*)cell).tableView = self.tableView;
-				((CellTextField*)cell).section = 0;
+				((CellTextField*)cell).section = 1;
 				((CellTextField*)cell).row = 0;
 			}
 			break;
-		case 1: //Last Name
+		case 2: //Last Name
 			cell = [self obtainTableTextFieldCellForRow:row];
 			if (row==0) {
 				((CellTextField*)cell).tableView = self.tableView;
-				((CellTextField*)cell).section = 1;
+				((CellTextField*)cell).section = 2;
 				((CellTextField*)cell).row = 0;
 			}			
 			break;
-		case 2: //Email
+		case 3: //Email
 			cell = [self obtainTableTextFieldCellForRow:row];
 			if (row==0) {
 				((CellTextField*)cell).tableView = self.tableView;
-				((CellTextField*)cell).section = 1;
+				((CellTextField*)cell).section = 3;
 				((CellTextField*)cell).row = 0;
 			}			
 			break;
-		case 3: //Zip
+		case 4: //Zip
 			cell = [self obtainTableTextFieldCellForRow:row];
 			if (row==0) {
 				((CellTextField*)cell).tableView = self.tableView;
-				((CellTextField*)cell).section = 1;
+				((CellTextField*)cell).section = 4;
 				((CellTextField*)cell).row = 0;
 			}			
 			break;
-		case 4: //Agreement
+		case 5: //Agreement
 			if (row=0) cell = [self obtainTableTextViewCellForRow:row];
 			else cell = [self obtainTableSwitchCellForRow:row];
 			break;
-		case 5: //Submit
+		case 6: //Submit
 			cell = [self obtainTableButtonCellForRow:row];
 			break;
 		default:
@@ -326,7 +317,7 @@
 	UITableViewCell *sourceCell = [self obtainTableCellForRow:row inSection:section];
 	
 	switch (section) {
-		case 0: //First Name
+		case 1: //First Name
 			if (row == 0)
 			{
 				// this cell hosts the UISwitch control
@@ -338,7 +329,7 @@
 				((SourceCell *)sourceCell).sourceLabel.text = @"Please enter your first name.";
 			}
 			break;
-		case 1: //Last Name
+		case 2: //Last Name
 			if (row == 0)
 			{
 				// this cell hosts the UISwitch control
@@ -350,7 +341,7 @@
 				((SourceCell *)sourceCell).sourceLabel.text = @"Please enter your last name.";
 			}
 			break;
-		case 2: //Email
+		case 3: //Email
 			if (row == 0)
 			{
 				// this cell hosts the UISwitch control
@@ -362,7 +353,7 @@
 				((SourceCell *)sourceCell).sourceLabel.text = @"Please enter your email address. (optional)";
 			}
 			break;
-		case 3: //Zip
+		case 4: //Zip
 			if (row == 0)
 			{
 				// this cell hosts the UISwitch control
@@ -374,7 +365,7 @@
 				((SourceCell *)sourceCell).sourceLabel.text = @"Please enter your zip code.";
 			}
 			break;
-		case 4: //Other Problems
+		case 5: //Other Problems
 			if (row == 0)
 			{
 				// this cell hosts the UISwitch control
@@ -385,8 +376,10 @@
 				((DisplayCell *)sourceCell).nameLabel.text = @"I Agree";
 			}
 			break;
-		case 5: //Submit
+		case 6: //Submit
 			((CellButton *)sourceCell).view = [self createUIButton];
+			sourceCell.backgroundColor = [UIColor clearColor];
+
 			break;
 		default:
 			break;
@@ -396,6 +389,7 @@
     return sourceCell;
 }
 
+/*
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	NSString *title=nil;
 	
@@ -423,6 +417,49 @@
 	}
     return title;
 }
+*/
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+	if (section==0) return (kCommentHeaderHeight*2.0);
+    else return kCommentHeaderHeight;
+}
+
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+	NSString *fileName = nil;
+	
+	if (section==0) return titleView;
+	
+	switch (section) {
+		case 1: //FirstName
+			fileName=@"f_name.png";
+			break;
+		case 2: //Last Name
+			fileName=@"l_name.png";
+			break;
+		case 3: //Email
+			fileName =@"email.png";
+			break;
+		case 4: //Zip
+			fileName=@"zip.png";
+			break;
+		case 5: //Agreement
+			fileName=nil;
+			break;
+		case 6: //Submit
+			fileName=nil;
+			break;
+		default:
+			break;
+	}
+	if (fileName){
+		UIImage *image = [UIImage imageNamed:fileName];
+		UIImageView *imageView = [[[UIImageView alloc] initWithImage:image] autorelease];
+		imageView.contentMode = UIViewContentModeLeft;
+		return imageView;
+	} else return nil;
+}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
 	return 4.0;
@@ -436,7 +473,7 @@
  */
 
 - (UITableViewCellAccessoryType)tableView:(UITableView *)tv accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section==4 && indexPath.row==1 && isAgree)
+	if (indexPath.section==5 && indexPath.row==1 && isAgree)
 		return UITableViewCellAccessoryCheckmark;
 	else 
 		return UITableViewCellAccessoryNone;
@@ -459,7 +496,7 @@
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	// only allow selection of a couple of the rows
-	if (indexPath.section==4 && indexPath.row==1) return indexPath; 
+	if (indexPath.section==5 && indexPath.row==1) return indexPath; 
 	return nil;
 }
 
@@ -468,7 +505,7 @@
     [itableView deselectRowAtIndexPath:[itableView indexPathForSelectedRow] animated:YES];
 	NSInteger section = newIndexPath.section;
 	
-	if (section==4 && newIndexPath.row==1){
+	if (section==5 && newIndexPath.row==1){
 		//[itableView scrollToRowAtIndexPath:newIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 		isAgree = !isAgree;
 	}

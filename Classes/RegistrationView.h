@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 
-@interface RegistrationView : UITableViewController {
+@interface RegistrationView : UIViewController <UITableViewDelegate, UITableViewDataSource> {
+	IBOutlet UITableView *tableView;
+	IBOutlet UIView *titleView;
 	
 	UITextField  *firstNameTextField;
 	UITextField  *lastNameTextField;
@@ -20,6 +22,8 @@
 	//DataField
 	BOOL isAgree;
 }
+
+@property (nonatomic, retain) UITableView *tableView;
 
 - (void) doSave: (id) sender;
 

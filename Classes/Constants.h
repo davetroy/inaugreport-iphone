@@ -111,5 +111,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 // the amount of vertical shift upwards keep the text field in view as the keyboard appears
 #define kOFFSET_FOR_KEYBOARD                    180.0
+#define kCommentHeaderHeight		45.0
+
 
 

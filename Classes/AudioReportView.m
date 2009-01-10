@@ -37,7 +37,7 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	audioCell = [[[AudioView alloc] initWithFrame:CGRectMake(10, 100, 300, 100)] retain]; 
+	audioCell = [[[AudioView alloc] initWithFrame:CGRectMake(10, 100, 310, 200)] retain]; 
 	[self.view addSubview:audioCell];
 }
 

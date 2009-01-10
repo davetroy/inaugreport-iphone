@@ -119,16 +119,16 @@ NSString *kCellAudio_ID = @"CellAudio_ID";
 								);
 		
 
-		playButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-		[playButton setTitle:@"Play" forState:UIControlStateNormal];
-		playButton.frame = CGRectMake(210, 10, 70, 30);
+		playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+		[playButton setImage:[UIImage imageNamed:@"play.png"] forState:UIControlStateNormal];
+		playButton.frame = CGRectMake(210, 10, 80, 40);
 		[playButton addTarget:self action:@selector(playOrStop:) forControlEvents:UIControlEventTouchUpInside];
 		[self.playButton setEnabled:NO];
 		[self addSubview:playButton];
 
-		recordButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-		[recordButton setTitle:@"Record" forState:UIControlStateNormal];
-		recordButton.frame = CGRectMake(210, 50, 70, 30);
+		recordButton = [UIButton buttonWithType:UIButtonTypeCustom];
+		[recordButton setImage:[UIImage imageNamed:@"record.png"] forState:UIControlStateNormal];
+		recordButton.frame = CGRectMake(210, 70, 80, 40);
 		[recordButton addTarget:self action:@selector(recordOrStop:) forControlEvents:UIControlEventTouchUpInside];
 		[self addSubview:recordButton];
 		
@@ -206,7 +206,7 @@ NSString *kCellAudio_ID = @"CellAudio_ID";
 			
 			NSLog (@"playback just started.");
 			[self.recordButton setEnabled: NO];
-			[self.playButton setTitle: @"Stop"  forState:UIControlStateNormal];
+			[self.playButton setImage:[UIImage imageNamed:@"pause.png"] forState:UIControlStateNormal];
 			[self.statusSign setText: @"Playback"];
 			[self.statusSign setTextColor: [UIColor colorWithRed: 0.0 green: 0.0 blue: 0.0 alpha: 1.0]];
 			
@@ -216,7 +216,7 @@ NSString *kCellAudio_ID = @"CellAudio_ID";
 			NSLog (@"recording just started.");
 			[self.playButton setEnabled: NO];
 			NSLog (@"setting Record button title to Stop.");
-			[self.recordButton setTitle: @"Stop" forState:UIControlStateNormal];
+			[self.recordButton setImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal];
 			[self.statusSign setText: @"Recording"];
 			[self.statusSign setTextColor: [UIColor colorWithRed: 0.67 green: 0.0 blue: 0.0 alpha: 1.0]];
 		}
@@ -228,7 +228,7 @@ NSString *kCellAudio_ID = @"CellAudio_ID";
 			
 			NSLog (@"playback just stopped.");
 			[self.recordButton setEnabled: YES];
-			[self.playButton setTitle: @"Play"  forState:UIControlStateNormal];
+			[self.playButton setImage:[UIImage imageNamed:@"play.png"] forState:UIControlStateNormal];
 			
 			[audioPlayer release];
 			audioPlayer = nil;
@@ -238,7 +238,7 @@ NSString *kCellAudio_ID = @"CellAudio_ID";
 			NSLog (@"recording just stopped.");
 			[self.playButton setEnabled: YES];
 			NSLog (@"setting Record button title to Record.");
-			[self.recordButton setTitle: @"Record"  forState:UIControlStateNormal];
+			[self.recordButton setImage:[UIImage imageNamed:@"record.png"] forState:UIControlStateNormal];
 			
 			[audioRecorder release];
 			audioRecorder = nil;

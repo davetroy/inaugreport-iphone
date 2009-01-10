@@ -258,7 +258,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)loadView 
 { 
 	self.title = @"Report Queue";
-	
+
+	[self loadContent];
 	UITableView *tableView = [[[UITableView alloc] initWithFrame:[[UIScreen mainScreen] 
 													applicationFrame] 
 											 style:UITableViewStylePlain] autorelease]; 
@@ -270,12 +271,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 	self.tableView = tableView; 
 	
 	//Start the upload thread
-	/*
 	blogThread = [[[BlogThread alloc] init]retain];
 	blogThread.delegate = self;
 	blogThread.pause = YES;
 	[blogThread start];	
-	 */
 	
 } 
 
