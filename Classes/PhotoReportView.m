@@ -83,7 +83,16 @@
 	} else [self pickPicture];
 }
 
+- (void) startSpin{
+	[spinner startAnimating];
+}
+
+- (void)stopSpin{
+	[spinner stopAnimating];
+}
+
 - (IBAction) doSubmit {
+	[self performSelectorInBackground:@selector(startSpin) withObject:nil];
 	
 	//Save to database
 	[[DbHelper sharedInstance] initializeDatabase];
@@ -148,6 +157,7 @@
 		[self.navigationController popViewControllerAnimated:YES];
 	}
 	
+	[self performSelectorInBackground:@selector(stopSpin) withObject:nil];
 	
 }
 

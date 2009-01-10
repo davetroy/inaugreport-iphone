@@ -17,6 +17,7 @@
 	UIViewController *photoReportView;
 	UIViewController *audioReportView;
 	UIViewController *textReportView;
+	UIViewController *registerView;
 	
 
 }
@@ -24,5 +25,7 @@
 - (IBAction) doAudioReport;
 - (IBAction) doPhotoReport;
 - (IBAction) doTextReport;
+
+- (IBAction) doRegister;
 
 @end

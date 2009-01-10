@@ -281,6 +281,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 
 - (void)viewWillAppear:(BOOL)animated{
+	[self loadContent];
 	[self.tableView reloadData];
 }
 

@@ -12,6 +12,7 @@
 
 
 @interface AudioReportView : UIViewController {
+	IBOutlet UIActivityIndicatorView *spinner;
 	AudioView *audioCell;
 	BOOL isNewReport;
 	Post *myPost;

@@ -11,6 +11,7 @@
 
 
 @interface PhotoReportView : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIActionSheetDelegate> {
+	IBOutlet UIActivityIndicatorView *spinner;
 	IBOutlet UIImageView *photoImageView;
 	IBOutlet UITextField *captionTextField;
 	

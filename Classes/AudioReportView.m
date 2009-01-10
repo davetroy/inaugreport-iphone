@@ -49,7 +49,19 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
-- (IBAction) doSubmit{
+
+
+- (void) startSpin{
+	[spinner startAnimating];
+}
+
+- (void)stopSpin{
+	[spinner stopAnimating];
+}
+
+- (IBAction) doSubmit {
+	[self performSelectorInBackground:@selector(startSpin) withObject:nil];
+	
 	//Save to database
 	[[DbHelper sharedInstance] initializeDatabase];
 	sqlite3 *db = [DbHelper sharedInstance].database;
@@ -84,15 +96,7 @@
 			NSString *targetSoundFilePath = [NSString stringWithFormat: @"%@/%d.caf", recordingDirectory, self.myPost.primaryKey];
 			[[NSFileManager defaultManager] removeItemAtPath:targetSoundFilePath error:NULL];
 			
-			NSError *copyError;
-			[[NSFileManager defaultManager] copyItemAtPath:tmpSoundPath toPath:targetSoundFilePath error:&copyError];
-			
-			if (copyError){
-				//What to do!
-				NSLog(@"%@",copyError);
-			}
-			
-			
+			[[NSFileManager defaultManager] copyItemAtPath:tmpSoundPath toPath:targetSoundFilePath error:nil];
 			
 
 			self.myPost.title = @"Audio Report";
@@ -118,8 +122,8 @@
 		[self.navigationController popViewControllerAnimated:YES];
 	}
 	
-	
-	
+	[self performSelectorInBackground:@selector(stopSpin) withObject:nil];
+		
 }
 
 - (IBAction) doCancel{
