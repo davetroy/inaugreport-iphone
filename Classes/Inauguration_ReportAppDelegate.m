@@ -23,7 +23,7 @@
     [window addSubview:viewController.view];
     [window makeKeyAndVisible];
 
-	[[Reachability sharedReachability] setHostName:VOTEREPORT_TEST_URL];
+	[[Reachability sharedReachability] setHostName:REACHABILITY_TEST_URL];
 	
 }
 

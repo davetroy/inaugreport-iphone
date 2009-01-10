@@ -1,9 +1,24 @@
 /*
 
+===== IMPORTANT =====
+
+This is sample code demonstrating API, technology or techniques in development.
+Although this sample code has been reviewed for technical accuracy, it is not
+final. Apple is supplying this information to help you plan for the adoption of
+the technologies and programming interfaces described herein. This information
+is subject to change, and software implemented based on this sample code should
+be tested with final operating system software and final documentation. Newer
+versions of this sample code may be provided with future seeds of the API or
+technology. For information about updates to this and other developer
+documentation, view the New & Updated sidebars in subsequent documentation
+seeds.
+
+=====================
+
 File: Reachability.m
 Abstract: SystemConfiguration framework wrapper.
 
-Version: 1.5
+Version: 1.3
 
 Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple Inc.
 ("Apple") in consideration of your agreement to the following terms, and your
@@ -111,6 +126,10 @@ static Reachability *_sharedReachability;
 	// be reached using the current network configuration, but a
 	// connection must first be established.
 	//
+	// As an example, this status would be returned for a dialup
+	// connection that was not currently active, but could handle
+	// network traffic for the target system.
+	//
 	// If the flag is false, we don't have a connection. But because CFNetwork
     // automatically attempts to bring up a WWAN connection, if the WWAN reachability
     // flag is present, a connection is not required.
@@ -123,7 +142,7 @@ static Reachability *_sharedReachability;
 }
 
 // Returns whether or not the current host name is reachable with the current network configuration.
-- (BOOL)isHostReachable:(NSString *)host
+- (BOOL)_isHostReachable:(NSString *)host
 {
     if (!host || ![host length]) {
         return NO;
@@ -195,7 +214,7 @@ static Reachability *_sharedReachability;
     return [self isReachableWithoutRequiringConnection:addressReachabilityFlags];
 }
 
-// ReachabilityCallback is registered as the callback for network state changes in startListeningForReachabilityChanges.
+// ReachabilityCallback is registered as the callback for network state changes in _startListeningForReachabilityChanges.
 static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void *info)
 {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -214,7 +233,6 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 	ReachabilityQuery *query = [self.reachabilityQueries objectForKey:kDefaultRouteKey];
 	SCNetworkReachabilityRef defaultRouteReachability = query.reachabilityRef;
 	
-    // If a cached reachability query was not found, create one.
     if (!defaultRouteReachability) {
         
         struct sockaddr_in zeroAddress;
@@ -256,7 +274,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 	return isReachable;
 }
 
-// Be a good citizen and unregister for network state changes when the application terminates.
+// Be a good citizen an unregister for network state changes when the application terminates.
 - (void)stopListeningForReachabilityChanges
 {
 	// Walk through the cache that holds SCNetworkReachabilityRefs for reachability
@@ -334,8 +352,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 	struct sockaddr_in address;
 	
 	BOOL gotAddress = [self addressFromString:addressString address:&address];
+	// The attempt to convert addressString to a sockaddr_in failed.
 	if (!gotAddress) {
-        // The attempt to convert addressString to a sockaddr_in failed.
         NSAssert1(gotAddress != NO, @"Failed to convert an IP address string to a sockaddr_in: %@", addressString);
 		return NULL;
 	}
@@ -348,7 +366,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 		return reachabilityRefForAddress;
 	}
 	
-	// Didn't find an existing SCNetworkReachabilityRef for addressString, so create one.
+	// Didn't find an existing SCNetworkReachabilityRef for addressString, so create one ...
 	reachabilityRefForAddress = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (struct sockaddr *)&address);
     
     NSAssert1(reachabilityRefForAddress != NULL, @"Failed to create SCNetworkReachabilityRef for address: %@", addressString);
@@ -375,7 +393,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 	/*
      If the current host name or address is reachable, determine which network interface it is reachable through.
      If the host is reachable and the reachability flags include kSCNetworkReachabilityFlagsIsWWAN, it
-     is reachable through the carrier data network. If the host is reachable and the reachability
+     is reachable through the cellular data network. If the host is reachable and the reachability
      flags do not include kSCNetworkReachabilityFlagsIsWWAN, it is reachable through the WiFi network.
      */
     
@@ -406,8 +424,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 	if (!reachable) {
 		return NotReachable;
 	}
-	if (reachabilityFlags & ReachableViaCarrierDataNetwork) {
-		return ReachableViaCarrierDataNetwork;
+	if (reachabilityFlags & ReachableViaCellularDataNetwork) {
+		return ReachableViaCellularDataNetwork;
 	}
 	
 	return ReachableViaWiFiNetwork;
@@ -421,7 +439,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
      for the kSCNetworkReachabilityFlagsIsDirect flag, which tell us if the connection
      is to an ad-hoc WiFi network. If it is not, the device can access the Internet.
      The next thing to determine is how the device can access the Internet, which
-     can either be through the carrier data network (EDGE or other service) or through
+     can either be through the cellular data network (EDGE or other service) or through
      a WiFi connection.
      
      Note: Knowing that the device has an Internet connection is not the same as
@@ -438,8 +456,8 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 			// The connection is to an ad-hoc WiFi network, so Internet access is not available.
 			return NotReachable;
 		}
-		else if (defaultRouteFlags & ReachableViaCarrierDataNetwork) {
-			return ReachableViaCarrierDataNetwork;
+		else if (defaultRouteFlags & ReachableViaCellularDataNetwork) {
+			return ReachableViaCellularDataNetwork;
 		}
 		
 		return ReachableViaWiFiNetwork;
@@ -495,7 +513,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 @end
 
 @interface ReachabilityQuery ()
-- (CFRunLoopRef)startListeningForReachabilityChanges:(SCNetworkReachabilityRef)reachability onRunLoop:(CFRunLoopRef)runLoop;
+- (CFRunLoopRef)_startListeningForReachabilityChanges:(SCNetworkReachabilityRef)reachability onRunLoop:(CFRunLoopRef)runLoop;
 @end
 
 @implementation ReachabilityQuery
@@ -555,7 +573,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 	// using the current runLoop.
 	if (![self isScheduledOnRunLoop:runLoop]) {
         
-		CFRunLoopRef notificationRunLoop = [self startListeningForReachabilityChanges:self.reachabilityRef onRunLoop:runLoop];
+		CFRunLoopRef notificationRunLoop = [self _startListeningForReachabilityChanges:self.reachabilityRef onRunLoop:runLoop];
 		if (notificationRunLoop) {
 			CFArrayAppendValue(self.runLoops, notificationRunLoop);
 		}
@@ -564,7 +582,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 // Register to receive changes to the 'reachability' query so that we can update the
 // user interface when the network state changes.
-- (CFRunLoopRef)startListeningForReachabilityChanges:(SCNetworkReachabilityRef)reachability onRunLoop:(CFRunLoopRef)runLoop
+- (CFRunLoopRef)_startListeningForReachabilityChanges:(SCNetworkReachabilityRef)reachability onRunLoop:(CFRunLoopRef)runLoop
 {	
 	if (!reachability) {
 		return NULL;

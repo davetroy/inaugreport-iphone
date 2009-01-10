@@ -1,9 +1,24 @@
 /*
 
+===== IMPORTANT =====
+
+This is sample code demonstrating API, technology or techniques in development.
+Although this sample code has been reviewed for technical accuracy, it is not
+final. Apple is supplying this information to help you plan for the adoption of
+the technologies and programming interfaces described herein. This information
+is subject to change, and software implemented based on this sample code should
+be tested with final operating system software and final documentation. Newer
+versions of this sample code may be provided with future seeds of the API or
+technology. For information about updates to this and other developer
+documentation, view the New & Updated sidebars in subsequent documentation
+seeds.
+
+=====================
+
 File: Reachability.h
 Abstract: SystemConfiguration framework wrapper.
 
-Version: 1.5
+Version: 1.3
 
 Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple Inc.
 ("Apple") in consideration of your agreement to the following terms, and your
@@ -67,7 +82,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
  */
 typedef enum {
 	NotReachable = 0,
-	ReachableViaCarrierDataNetwork,
+	ReachableViaCellularDataNetwork,
 	ReachableViaWiFiNetwork
 } NetworkStatus;
 
@@ -81,10 +96,10 @@ typedef enum {
 // The IP address of the remote host whose reachability will be queried.
 // Either this or 'hostName' must be set.
 @property (nonatomic, retain) NSString *address;
-// A cache of ReachabilityQuery objects, which encapsulate a SCNetworkReachabilityRef, a host or address, and a run loop. The keys are host names or addresses.
+// A cache of ReachabilityQuery objects, which encapsulate SCNetworkReachabilityRef, a host or address, and a run loop. The keys are host names or addresses.
 @property (nonatomic, assign) NSMutableDictionary *reachabilityQueries;
 
-// This class is intended to be used as a singleton.
+// This class is meant be used as a singleton.
 + (Reachability *)sharedReachability;
 
 // Is self.hostName is not nil, determines its reachability.
@@ -111,7 +126,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 	NSString *_hostNameOrAddress;
 }
 // Keep around each network reachability query object so that we can
-// register for updates from those objects.
+// register for updates.
 @property (nonatomic) SCNetworkReachabilityRef reachabilityRef;
 @property (nonatomic, retain) NSString *hostNameOrAddress;
 @property (nonatomic) CFMutableArrayRef runLoops;

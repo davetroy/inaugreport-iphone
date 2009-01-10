@@ -13,7 +13,6 @@
 
 @implementation Reporter
 @synthesize location;
-@synthesize locationName;
 @synthesize target;
 @synthesize targetSelector;
 @synthesize successful;
@@ -43,7 +42,6 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
 	NSString *errorMsg;
-	self.locationName = LOCATION_UNKNOWN;
 	if (error.code ==  kCLErrorDenied) {
 		errorMsg = @"Inauguration Report requires access to your location to work properly! Please call our automated phone-based system instead!";
 	} else {
@@ -72,26 +70,8 @@
 -(void)setLocation:(CLLocation *)newLocation {
 	location = newLocation;
 	[location retain];
-	
-	//Update server with new user location
-	
-	HTTPManager *httpRequest = [[HTTPManager alloc] init];
-	httpRequest.target = self;
-	httpRequest.targetSelector = @selector(storeLocationName:);
-	NSDictionary *params = [NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"%.3f,%.3f", location.coordinate.latitude, location.coordinate.longitude]
-													   forKey:@"latlon"];
-	[httpRequest performRequestWithMethod:@"GET" toUrl:TWITTERVISION_LOCATION_LOOKUP_URL withParameters:params];
 }
 
-// Store the name of the location when we get it back
--(void)storeLocationName:(HTTPManager *)manager
-{
-	if ([manager successful]) {
-		self.locationName = [manager getResponseText];  //implied retain
-		printf("location: %s\n", [locationName UTF8String]);
-	}
-	[manager release];
-}
 
 -(void)postReportWithParams:(NSMutableDictionary *)params {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults]; 
@@ -110,10 +90,9 @@
 		 email, @"reporter[email]",
 		 zipCode, @"reporter[zipcode]",
 		 agree, @"reporter[agree]",
-		locationName, @"reporter[profile_location]",
 		[NSString stringWithFormat:@"%.3f,%.3f:%.0f",
 		 location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy ],
-		@"reporter[latlon]",
+		@"report[latlon]",
 		nil]
 	];
 	
