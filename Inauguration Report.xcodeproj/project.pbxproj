@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05ECFC9A0F192C29003FB4B1 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 05ECFC990F192C29003FB4B1 /* Reachability.m */; };
 		1D3623260D0F684500981E51 /* Inauguration_ReportAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* Inauguration_ReportAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -81,7 +82,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		051DDAA00F1924E100D98CA4 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		05ECFC980F192C29003FB4B1 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		05ECFC990F192C29003FB4B1 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* Inauguration_ReportAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Inauguration_ReportAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* Inauguration_ReportAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Inauguration_ReportAppDelegate.m; sourceTree = "<group>"; };
@@ -209,7 +211,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				051DDAA00F1924E100D98CA4 /* Reachability.h */,
+				05ECFC980F192C29003FB4B1 /* Reachability.h */,
+				05ECFC990F192C29003FB4B1 /* Reachability.m */,
 				51C5AEA60F17EAD3002BBBA8 /* AudioView.m */,
 				51C5AEA70F17EAD3002BBBA8 /* AudioView.h */,
 				1D3623240D0F684500981E51 /* Inauguration_ReportAppDelegate.h */,
@@ -504,6 +507,7 @@
 				51C0BBF80F18392B00899D5D /* CreditView.m in Sources */,
 				51C0BEFC0F187BCD00899D5D /* Reporter.m in Sources */,
 				51C0BEFD0F187BCD00899D5D /* HTTPManager.m in Sources */,
+				05ECFC9A0F192C29003FB4B1 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
