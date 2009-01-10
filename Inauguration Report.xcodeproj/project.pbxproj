@@ -69,6 +69,9 @@
 		51C0BDE90F18644E00899D5D /* l_name.png in Resources */ = {isa = PBXBuildFile; fileRef = 51C0BDE80F18644E00899D5D /* l_name.png */; };
 		51C0BDEB0F18645600899D5D /* email.png in Resources */ = {isa = PBXBuildFile; fileRef = 51C0BDEA0F18645600899D5D /* email.png */; };
 		51C0BDED0F18645E00899D5D /* zip.png in Resources */ = {isa = PBXBuildFile; fileRef = 51C0BDEC0F18645E00899D5D /* zip.png */; };
+		51C0BEFC0F187BCD00899D5D /* Reporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C0BEF80F187BCD00899D5D /* Reporter.m */; };
+		51C0BEFD0F187BCD00899D5D /* HTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C0BEFA0F187BCD00899D5D /* HTTPManager.m */; };
+		51C0BF070F187CB200899D5D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 51C0BF060F187CB200899D5D /* CoreLocation.framework */; };
 		51C1C2130F1702170094456B /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 51C1C2120F1702170094456B /* MainMenu.xib */; };
 		51C1C2190F1703430094456B /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C1C2180F1703430094456B /* MainMenu.m */; };
 		51C1C2420F1705E90094456B /* RegistrationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 51C1C2410F1705E90094456B /* RegistrationView.m */; };
@@ -169,6 +172,11 @@
 		51C0BDE80F18644E00899D5D /* l_name.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = l_name.png; sourceTree = "<group>"; };
 		51C0BDEA0F18645600899D5D /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email.png; sourceTree = "<group>"; };
 		51C0BDEC0F18645E00899D5D /* zip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zip.png; sourceTree = "<group>"; };
+		51C0BEF80F187BCD00899D5D /* Reporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reporter.m; path = Classes/Reporter.m; sourceTree = "<group>"; };
+		51C0BEF90F187BCD00899D5D /* Reporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reporter.h; path = Classes/Reporter.h; sourceTree = "<group>"; };
+		51C0BEFA0F187BCD00899D5D /* HTTPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPManager.m; path = Classes/HTTPManager.m; sourceTree = "<group>"; };
+		51C0BEFB0F187BCD00899D5D /* HTTPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPManager.h; path = Classes/HTTPManager.h; sourceTree = "<group>"; };
+		51C0BF060F187CB200899D5D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		51C1C2120F1702170094456B /* MainMenu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		51C1C2170F1703430094456B /* MainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenu.h; sourceTree = "<group>"; };
 		51C1C2180F1703430094456B /* MainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenu.m; sourceTree = "<group>"; };
@@ -193,6 +201,7 @@
 				51A038E60F1716D00084BE1A /* AudioToolbox.framework in Frameworks */,
 				51A038EB0F1716F00084BE1A /* QuartzCore.framework in Frameworks */,
 				51A03A650F1738070084BE1A /* libsqlite3.0.dylib in Frameworks */,
+				51C0BF070F187CB200899D5D /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,6 +286,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				51C0BF060F187CB200899D5D /* CoreLocation.framework */,
 				51A03A640F1738070084BE1A /* libsqlite3.0.dylib */,
 				51A038EA0F1716F00084BE1A /* QuartzCore.framework */,
 				51A038E50F1716D00084BE1A /* AudioToolbox.framework */,
@@ -334,6 +344,10 @@
 		51A03A5B0F1737AB0084BE1A /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				51C0BEF80F187BCD00899D5D /* Reporter.m */,
+				51C0BEF90F187BCD00899D5D /* Reporter.h */,
+				51C0BEFA0F187BCD00899D5D /* HTTPManager.m */,
+				51C0BEFB0F187BCD00899D5D /* HTTPManager.h */,
 				51A03A8C0F173A0D0084BE1A /* Util.h */,
 				51A03A8D0F173A0D0084BE1A /* Util.m */,
 				51A03A860F1739FB0084BE1A /* BlogProxy.h */,
@@ -494,6 +508,8 @@
 				51A03A8E0F173A0D0084BE1A /* Util.m in Sources */,
 				51C5AEA80F17EAD3002BBBA8 /* AudioView.m in Sources */,
 				51C0BBF80F18392B00899D5D /* CreditView.m in Sources */,
+				51C0BEFC0F187BCD00899D5D /* Reporter.m in Sources */,
+				51C0BEFD0F187BCD00899D5D /* HTTPManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

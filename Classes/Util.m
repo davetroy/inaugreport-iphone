@@ -6,7 +6,7 @@
 //  Copyright 2008 Zerion Consulting. All rights reserved.
 //
 #import "Util.h"
-#import "constant.h"
+#import "Constants.h"
 
 
 #define kAnimationKey @"transitionViewAnimation"

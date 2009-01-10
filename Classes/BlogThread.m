@@ -17,6 +17,7 @@
 
 @synthesize delegate;
 @synthesize pause;
+@synthesize uploading;
 
 
 - (void)main{
@@ -28,12 +29,12 @@
 	
 	while (true){
 		
-		
 		NSLog(@"BLOG THREAD: Getting Post");
 		NSLog(@"BLOG THREAD: Pause=%s",pause?"YES":"NO");
-		if (!pause) {
+		NSLog(@"BLOG THREAD: Uploading=%s",uploading?"YES":"NO");
+		if (!pause  && !uploading) {
 		//Pick the first unuploaded Post object from the database 
-		Post *myPost = [[delegate getNextUploadPost] retain];
+		myPost = [[delegate getNextUploadPost] retain];
 
 		NSLog(@"BLOG THREAD: Got Post [%@]",myPost);		
 		if (myPost != nil) {
@@ -45,32 +46,12 @@
 					
 			//Try uploading it
 			NSLog(@"BLOG THREAD: Uploading");	
-			NSString *postid = nil;
 			
-			// Step 1. Send Image (inside the send to Blog call
-			// Step 2. Send the blog
-			
-			id response = [myBlogProxy sendPostToServer:myPost];
-			if ([response isKindOfClass:[NSError class]] ){
-				//Tell the delegate we have an error
-				[delegate newUploadError:response];
-			} else {
-				postid = (NSString *)response;	
-			}
-			NSLog(@"BLOG THREAD: PostID=%@",postid);
-			NSLog(@"BLOG THREAD: Upload done");
-			if (postid!=nil){ //Update the uploadstatus
-				myPost.postId = postid;
-				myPost.uploadIndicator = POSTUPLOADINDICATOR_DONE;
-				
-				
-			} else myPost.uploadIndicator = POSTUPLOADINDICATOR_WAITING; //RESET
-			
-			[delegate newUploadStatus:myPost];
-			
+			uploading = YES;
+			myBlogProxy.reporter.target = self;
+			myBlogProxy.reporter.targetSelector = @selector(uploadCompleted);
+			[myBlogProxy sendPostToServer:myPost];
 		}
-		//Closing database
-		[myPost release];
 		}//Pause
 		
 		//Sleep for 10 seconds
@@ -79,6 +60,23 @@
 	}
 	[pool release];
 	
+}
+
+- (void) uploadCompleted{
+	
+	BOOL success = [BlogProxy sharedInstance].reporter.successful;
+
+	if (success){ //Update the uploadstatus
+		NSLog(@"Upload Successful.");
+		myPost.uploadIndicator = POSTUPLOADINDICATOR_DONE;
+	} else {
+		NSLog(@"Upload Failed.");
+		myPost.uploadIndicator = POSTUPLOADINDICATOR_WAITING; //RESET. will try again later
+	}
+	
+	[delegate newUploadStatus:myPost];
+	[myPost release];
+	uploading = NO;	//So the thread will continue
 }
 
 

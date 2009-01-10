@@ -21,9 +21,14 @@
 @interface BlogThread : NSThread {
 	id delegate;
 	BOOL pause;
+	BOOL uploading;
+	Post *myPost;
 }
 
 @property (nonatomic,assign) id <BlogThreadDelegate> delegate;
 @property (nonatomic,assign) BOOL pause;
+@property (nonatomic,assign) BOOL uploading;
+
+- (void) uploadCompleted;
 
 @end
