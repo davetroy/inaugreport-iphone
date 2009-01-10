@@ -349,7 +349,7 @@
 			else
 			{
 				// this cell hosts the info on where to find the code
-				((SourceCell *)sourceCell).sourceLabel.text = @"Please enter your email address.";
+				((SourceCell *)sourceCell).sourceLabel.text = @"Please enter your email address. (optional)";
 			}
 			break;
 		case 3: //Zip
