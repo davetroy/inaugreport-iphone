@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BlogThread.h"
 
 
-@interface MainMenu : UIViewController {
+@interface MainMenu : UIViewController <BlogThreadDelegate> {
 	IBOutlet UIView                  *reportSubmitView;
 	IBOutlet UIActivityIndicatorView *reportSubmitViewSpinner;
 	IBOutlet UILabel				 *reportSubmitViewLabel;
@@ -21,6 +22,9 @@
 	UIViewController *creditView;
 	UIViewController *reportListView;
 	
+	BlogThread     *blogThread;
+	NSMutableArray *contentArray;
+	
 
 }
 
@@ -29,5 +33,7 @@
 - (IBAction) doTextReport;
 - (IBAction) doRegister;
 - (IBAction) flipCredit;
+
+- (void) loadContent;
 
 @end

@@ -45,7 +45,7 @@ static BlogProxy *si = nil;
 	//post.description = sound path. //For now.
 	
 	
-	return nil;
+	return @"1"; //Returning a string means success. nil if fail
 }
 
 @end

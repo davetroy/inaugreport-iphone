@@ -15,6 +15,9 @@
 #import "CreditView.h"
 #import "ReportListView.h"
 #import "Constants.h"
+#import "DbHelper.h"
+#import "BlogProxy.h"
+#import "Util.h"
 
 
 @implementation MainMenu
@@ -34,13 +37,21 @@
 - (void)loadView {
 }
 */
+- (BOOL)handleError:(NSError *)err
+{
+	return [Util handleError:err];
+}
+
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
 	reportSubmitView.hidden = YES;
-	
-	
+
+	//Start the upload thread
+	blogThread = [[[BlogThread alloc] init]retain];
+	blogThread.delegate = self;
+	blogThread.pause = YES;
 }
 
 - (void)viewDidAppear:(BOOL)a{
@@ -50,6 +61,14 @@
 	NSString *lastName  =  [defaults objectForKey:DEFAULTKEY_LASTNAME];
 	if (!([firstName length]>0 && [lastName length]>0)) [self doRegister];
 	
+	//Let upload begin
+	blogThread.pause = NO;
+	[blogThread start];
+}
+
+- (void)viewDidDisappear:(BOOL)a{
+	[super viewDidDisappear:a];
+	blogThread.pause = YES; //Controling upload only happen on main menu
 }
 
 /*
@@ -59,6 +78,38 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 */
+
+- (void)loadContent{
+	@synchronized([BlogProxy sharedInstance]){ //Use the blogProxy as a common lock token
+		[contentArray release];
+		contentArray = [[NSMutableArray alloc] init];
+		
+		[[DbHelper sharedInstance] initializeDatabase];
+		sqlite3 *db = [DbHelper sharedInstance].database;
+		const char *sql = "SELECT ID FROM POST";
+		sqlite3_stmt *statement;
+		// Preparing a statement compiles the SQL query into a byte-code program in the SQLite library.
+		// The third parameter is either the length of the SQL string or -1 to read up to the first null terminator.        
+		if (sqlite3_prepare_v2(db, sql, -1, &statement, NULL) == SQLITE_OK) {
+			// We "step" through the results - once for each row.
+			while (sqlite3_step(statement) == SQLITE_ROW) {
+				// The second parameter indicates the column index into the result set.
+				int primaryKey = sqlite3_column_int(statement, 0);
+				// We avoid the alloc-init-autorelease pattern here because we are in a tight loop and
+				// autorelease is slightly more expensive than release. This design choice has nothing to do with
+				// actual memory management - at the end of this block of code, all the book objects allocated
+				// here will be in memory regardless of whether we use autorelease or release, because they are
+				// retained by the books array.
+				Post *p = [[Post alloc] initWithPrimaryKey:primaryKey database:db];
+				[contentArray addObject:p];
+				[p release];
+			}
+		}
+		// "Finalize" the statement - releases the resources associated with the statement.
+		sqlite3_finalize(statement);
+	}
+}
+
 
 - (IBAction) doRegister{
 	if (registerView==nil) registerView = [[[RegistrationView alloc] init] retain];
@@ -115,10 +166,88 @@
     
 }
 
+- (void) showStatus:(id)numInQueue{
+	reportSubmitViewLabel.text = [NSString stringWithFormat:@"Uploading report (%@ in queue)...",numInQueue];
+	reportSubmitView.hidden = NO;
+	[reportSubmitViewSpinner startAnimating];
+}
+- (void) hideStatus:(id)numInQueue{
+	reportSubmitView.hidden = YES;
+	[reportSubmitViewSpinner stopAnimating];
+}
+
+
+
+///////////////////////////////////
+//
+// BlogThreadDelegate
+//
+///////////////////////////////////
+-(Post *)getNextUploadPost{
+	[self loadContent]; //Since we don't expect a big queue, just reload from the database. (Just the ID anyway)
+	
+	if ([contentArray count]==0) {
+		blogThread.pause = YES; // Pause until next time it comes back to this screen
+		return nil;
+	}
+	
+	Post *returnPost = nil;
+
+	//Prevent the main thread from updating or deleting any Post while the Blog thread gets the next post for upload
+	@synchronized([BlogProxy sharedInstance]){ //Use the blogProxy as a common lock token
+		Post *myPost;
+		for (myPost in contentArray){
+			[myPost load];
+			
+			NSLog(@"GETNEXTUPADLOPOST TITLE=%@",myPost.title);
+			if (myPost.uploadIndicator==POSTUPLOADINDICATOR_UPLOADING) {
+				returnPost = myPost;
+				break;
+			}
+			
+			if (myPost.uploadIndicator==POSTUPLOADINDICATOR_WAITING){
+				myPost.uploadIndicator = POSTUPLOADINDICATOR_UPLOADING;
+				[myPost save];
+				returnPost = myPost;
+				break;
+			}
+		}
+	}
+	
+	//Display upload message
+	if (returnPost!=nil) {
+		[self performSelector:@selector(showStatus:) onThread:[NSThread mainThread] withObject:[NSNumber numberWithInt:[contentArray count]] waitUntilDone:NO];
+	}
+	
+	
+	return returnPost;
+	
+}
+
+-(void)newUploadStatus:(Post *)post{
+	//Prevent the main thread from updating (In PostViewController) or deleting any Post while the Blog thread gets the next post for upload	
+	@synchronized([BlogProxy sharedInstance]){ //Use the blogProxy as a common lock token
+		[post save];
+		if (post.uploadIndicator == POSTUPLOADINDICATOR_DONE){
+			NSLog(@"Deleting post[%d:%@]",post.primaryKey,post.title);
+			[post deleteFromDatabase];
+		}
+	}
+	[self performSelector:@selector(hideStatus:) onThread:[NSThread mainThread] withObject:[NSNumber numberWithInt:[contentArray count]] waitUntilDone:NO];
+}
+
+-(void)newUploadError:(NSError *)err{
+	[self performSelector:@selector(hideStatus:) onThread:[NSThread mainThread] withObject:[NSNumber numberWithInt:[contentArray count]] waitUntilDone:NO];
+	[self performSelector:@selector(handleError:) onThread:[NSThread mainThread] withObject:err waitUntilDone:NO];
+}
+
+
 
 
 
 - (void)dealloc {
+	[contentArray release];
+	[blogThread release];
 	[reportListView release];
 	[creditView release];
 	[registerView release];

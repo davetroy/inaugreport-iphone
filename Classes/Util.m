@@ -6,7 +6,7 @@
 //  Copyright 2008 Zerion Consulting. All rights reserved.
 //
 #import "Util.h"
-#import "Constants.h"
+#import "constant.h"
 
 
 #define kAnimationKey @"transitionViewAnimation"
@@ -26,6 +26,26 @@
 	[alert1 show];
 	[alert1 release];
 	return YES;
+}
+
++ (BOOL)handleError:(NSError *)err
+{
+	//	WPLog(@"handleError ......");
+	
+	NSDictionary *errorInfo = [(NSError*)err userInfo];
+	NSArray *errorStrArray = [errorInfo allValues];
+	NSMutableString *errorMsg = [[[NSMutableString alloc] initWithCapacity:20] autorelease];
+	for (int i=0; i< [errorStrArray count];i++){
+		id obj = [errorStrArray objectAtIndex:i];
+		if ([obj isKindOfClass:[NSString class]] ) {
+			if (i>0) [errorMsg appendString:@" "];
+			[errorMsg appendString:(NSString*)obj];
+		}
+	}
+	
+	
+	return [Util handleMsg:[NSString stringWithString:errorMsg] withTitle:@"Error"];
+	
 }
 
 // Method to replace a given subview with another using a specified transition type, direction, and duration

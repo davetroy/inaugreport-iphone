@@ -269,13 +269,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 	tableView.dataSource = self; 
 	[tableView reloadData]; 
 	self.tableView = tableView; 
-	
+
+	/*
 	//Start the upload thread
 	blogThread = [[[BlogThread alloc] init]retain];
 	blogThread.delegate = self;
 	blogThread.pause = YES;
 	[blogThread start];	
-	
+	*/
 } 
 
 

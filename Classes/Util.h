@@ -13,6 +13,7 @@
 
 }
 + (BOOL)handleMsg:(NSString *)msg withTitle:(NSString *)msg;
++ (BOOL)handleError:(NSError *)msg;
 + (void)replaceSubview:(UIView *)oldView withSubview:(UIView *)newView transition:(NSString *)transition direction:(NSString *)direction duration:(NSTimeInterval)duration;
 + (UIImage *)scaleAndRotateImage:(UIImage *)image maxResolution:(int)kMaxResolution;
 + (void)setViewMovedUp:(BOOL)movedUp viewController:(UIViewController *)viewController;
