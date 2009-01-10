@@ -350,7 +350,7 @@
 			else
 			{
 				// this cell hosts the info on where to find the code
-				((SourceCell *)sourceCell).sourceLabel.text = @"Please enter your email address. (optional)";
+				((SourceCell *)sourceCell).sourceLabel.text = @"Please enter your email address.";
 			}
 			break;
 		case 4: //Zip
@@ -362,7 +362,7 @@
 			else
 			{
 				// this cell hosts the info on where to find the code
-				((SourceCell *)sourceCell).sourceLabel.text = @"Please enter your zip code.";
+				((SourceCell *)sourceCell).sourceLabel.text = @"Please enter your home zip code or city.";
 			}
 			break;
 		case 5: //Other Problems

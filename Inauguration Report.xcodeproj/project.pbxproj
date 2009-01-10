@@ -518,7 +518,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sze Wong";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: David Troy";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -530,7 +530,7 @@
 					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = InaugReport;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5C47A760-DF91-4D03-B0C7-81AAFE639463";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "73D693E2-DC4E-4226-9BC7-989288C11F4D";
 			};
 			name = Debug;
 		};
@@ -554,12 +554,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: David Troy";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "73D693E2-DC4E-4226-9BC7-989288C11F4D";
 				SDKROOT = iphoneos2.2;
 			};
 			name = Debug;
