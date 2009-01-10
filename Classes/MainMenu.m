@@ -271,9 +271,17 @@
 	//Prevent the main thread from updating (In PostViewController) or deleting any Post while the Blog thread gets the next post for upload	
 	@synchronized([BlogProxy sharedInstance]){ //Use the blogProxy as a common lock token
 		[post save];
+		[post load];
 		if (post.uploadIndicator == POSTUPLOADINDICATOR_DONE){
+			//Delete audio file if any
+			if ([post.title isEqualToString:@"Audio Report"]){
+				NSString *soundfile = post.description;
+				NSLog(@"Deleting sound file [%@]",soundfile);
+				[[NSFileManager defaultManager] removeItemAtPath:soundfile error:nil];
+			}
 			NSLog(@"Deleting post[%d:%@]",post.primaryKey,post.title);
 			[post deleteFromDatabase];
+			
 		}
 	}
 	[self hideStatus:[NSNumber numberWithInt:[contentArray count]]];

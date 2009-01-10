@@ -68,12 +68,18 @@ static BlogProxy *si = nil;
 		//Caption : @"Audio Report"
 		//Sound file : [root path]/[post.primaryKey].caf
 		//post.description = sound path.
+
+		NSLog(@"====Posting AudioReport=====");
+		//[params setValue:@"AudioReport" forKey:@"report[type]"];
 		if (post.description) [params setValue:post.description forKey:@"soundfile"];
 	} else if (post.image!=nil){
 		//Photo Report
 		//Caption : post.title
 		//Photo   : post.image
 		//post.description == nil
+
+		NSLog(@"====Posting PhotoReport=====");
+		//[params setValue:@"PhotoReport" forKey:@"report[type]"];
 		if (post.title) [params setValue:post.title forKey:@"report[title]"];
 		NSString *imagefile = [self saveImageToTmp:post.image];
 		if (imagefile) [params setValue:imagefile forKey:@"imagefile"];
@@ -82,6 +88,9 @@ static BlogProxy *si = nil;
     	//Title : post.title
     	//Body  : post.description
     	//post.image == nil
+	
+		NSLog(@"====Posting TextReport=====");
+		//[params setValue:@"TextReport" forKey:@"report[type]"];
 		if (post.title) [params setValue:post.title forKey:@"report[title]"];
 		if (post.description) [params setValue:post.description forKey:@"report[body]"];
 	}
