@@ -102,11 +102,11 @@
 	NSString *soundfile = [params valueForKey:@"soundfile"];
 	NSString *imagefile = [params valueForKey:@"imagefile"];
 	if (soundfile)
-		[httpRequest uploadFile:soundfile toUrl:VOTEREPORT_REPORTS_URL withParameters:params];
+		[httpRequest uploadFile:soundfile toUrl:REPORTS_URL withParameters:params];
 	else if (imagefile)
-		[httpRequest uploadFile:imagefile toUrl:VOTEREPORT_REPORTS_URL withParameters:params];
+		[httpRequest uploadFile:imagefile toUrl:REPORTS_URL withParameters:params];
 	else
-		[httpRequest performRequestWithMethod:@"POST" toUrl:VOTEREPORT_REPORTS_URL withParameters:params];
+		[httpRequest performRequestWithMethod:@"POST" toUrl:REPORTS_URL withParameters:params];
 }	
 
 -(void)reportComplete:(HTTPManager *)manager
