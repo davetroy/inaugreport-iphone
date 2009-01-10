@@ -8,6 +8,7 @@
 
 #import "Inauguration_ReportAppDelegate.h"
 #import "MainMenu.h"
+#import "Reachability.h"
 
 
 @implementation Inauguration_ReportAppDelegate
@@ -21,6 +22,9 @@
     // Override point for customization after app launch    
     [window addSubview:viewController.view];
     [window makeKeyAndVisible];
+
+	[[Reachability sharedReachability] setHostName:VOTEREPORT_TEST_URL];
+	
 }
 
 

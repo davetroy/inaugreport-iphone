@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BlogThread.h"
+#import "Post.h"
 
 
-@interface MainMenu : UIViewController <BlogThreadDelegate> {
+@interface MainMenu : UIViewController {
 	IBOutlet UIView                  *reportSubmitView;
 	IBOutlet UIActivityIndicatorView *reportSubmitViewSpinner;
 	IBOutlet UILabel				 *reportSubmitViewLabel;
@@ -22,8 +22,9 @@
 	UIViewController *creditView;
 	UIViewController *reportListView;
 	
-	BlogThread     *blogThread;
 	NSMutableArray *contentArray;
+	
+	Post *currentPost;
 	
 
 }
@@ -35,5 +36,8 @@
 - (IBAction) flipCredit;
 
 - (void) loadContent;
+- (void) uploadPost;
+- (void) newUploadStatus:(Post *)post;
+- (Post *) getNextUploadPost;
 
 @end

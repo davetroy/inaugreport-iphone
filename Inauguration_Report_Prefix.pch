@@ -3,6 +3,7 @@
 //
 #define TWITTERVISION_LOCATION_LOOKUP_URL	@"http://twittervision.com/locations/lookup"
 #define VOTEREPORT_REPORTS_URL				@"http://realtypub.dyndns.org:3000/reports"
+#define VOTEREPORT_TEST_URL				    @"http://realtypub.dyndns.org"
 #define VOTEREPORT_REPORTS_KML_URL			@"maps:q=http://votereport.us/reports.kml?near=%.3f,%.3f&iphone=1"
 
 #ifdef __OBJC__

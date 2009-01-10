@@ -37,6 +37,11 @@
 	if (photoImageView.image==nil) [self doTakePicture];
 }
 
+- (void)reset {
+	captionTextField.text = nil;
+	photoImageView.image = nil;
+}
+
 - (void)takePicture {
 	
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] && !isTakingPicture)

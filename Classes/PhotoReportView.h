@@ -29,5 +29,6 @@
 - (IBAction) doCancel;
 - (IBAction) doTakePicture;
 - (IBAction) doTextDone;
+- (void) reset;
 
 @end

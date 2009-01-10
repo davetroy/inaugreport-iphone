@@ -13,11 +13,11 @@
 #import "TextReportView.h"
 #import "RegistrationView.h"
 #import "CreditView.h"
-#import "ReportListView.h"
 #import "Constants.h"
 #import "DbHelper.h"
 #import "BlogProxy.h"
 #import "Util.h"
+#import "Reachability.h"
 
 
 @implementation MainMenu
@@ -48,10 +48,6 @@
     [super viewDidLoad];
 	reportSubmitView.hidden = YES;
 
-	//Start the upload thread
-	blogThread = [[[BlogThread alloc] init]retain];
-	blogThread.delegate = self;
-	blogThread.pause = YES;
 }
 
 - (void)viewDidAppear:(BOOL)a{
@@ -61,14 +57,11 @@
 	NSString *lastName  =  [defaults objectForKey:DEFAULTKEY_LASTNAME];
 	if (!([firstName length]>0 && [lastName length]>0)) [self doRegister];
 	
-	//Let upload begin
-	blogThread.pause = NO;
-	[blogThread start];
+	[self uploadPost];
 }
 
 - (void)viewDidDisappear:(BOOL)a{
 	[super viewDidDisappear:a];
-	blogThread.pause = YES; //Controling upload only happen on main menu
 }
 
 /*
@@ -116,7 +109,6 @@
 	[self presentModalViewController:registerView animated:YES];	
 }  	
 
-
 - (IBAction) doAudioReport{
 	if (audioReportView==nil) audioReportView = [[[AudioReportView alloc] init] retain];
 	((AudioReportView*)audioReportView).isNewReport = YES;
@@ -126,6 +118,7 @@
 - (IBAction) doPhotoReport{
 	if (photoReportView==nil) photoReportView = [[[PhotoReportView alloc] init] retain];
 	((PhotoReportView*)photoReportView).isNewReport = YES;
+	[((PhotoReportView*)photoReportView) reset];
 	[self presentModalViewController:photoReportView animated:YES];
 }
 
@@ -180,14 +173,68 @@
 
 ///////////////////////////////////
 //
-// BlogThreadDelegate
+// Upload 
 //
 ///////////////////////////////////
+- (void)uploadPost{
+	
+	//Pick the first unuploaded Post object from the database 
+	currentPost = [[self getNextUploadPost] retain];
+	
+	NSLog(@"UPLOAD: Got Post [%@]",currentPost);		
+	if (currentPost != nil) {
+
+		NetworkStatus status = [[Reachability sharedReachability] internetConnectionStatus];
+		if (status==NotReachable) { //Special case.
+			reportSubmitView.hidden = NO;
+			reportSubmitViewLabel.text = [NSString stringWithFormat:@"%d report%@ in queue",[contentArray count], [contentArray count]>1?@"s":@""];
+			[reportSubmitViewSpinner stopAnimating];
+			return;
+		}
+		
+		
+		
+		[currentPost load];
+		[currentPost loadImage];
+		NSLog(@"UPLOAD: PK=%d",currentPost.primaryKey);		
+		NSLog(@"UPLOAD: Title=%@",currentPost.title);	
+		
+		//Try uploading it
+		NSLog(@"UPLOAD: Uploading");	
+		
+		BlogProxy *myBlogProxy = [BlogProxy sharedInstance];
+		myBlogProxy.reporter.target = self;
+		myBlogProxy.reporter.targetSelector = @selector(uploadCompleted);
+		[myBlogProxy sendPostToServer:currentPost];
+		
+		[self showStatus:[NSNumber numberWithInt:[contentArray count]]];
+		
+	}
+		
+	
+}
+
+- (void) uploadCompleted{
+	
+	BOOL success = [BlogProxy sharedInstance].reporter.successful;
+	
+	if (success){ //Update the uploadstatus
+		NSLog(@"Upload Successful.");
+		currentPost.uploadIndicator = POSTUPLOADINDICATOR_DONE;
+	} else {
+		NSLog(@"Upload Failed.");
+		currentPost.uploadIndicator = POSTUPLOADINDICATOR_WAITING; //RESET. will try again later
+	}
+	
+	[self newUploadStatus:currentPost];
+	[currentPost release];
+}
+
+
 -(Post *)getNextUploadPost{
 	[self loadContent]; //Since we don't expect a big queue, just reload from the database. (Just the ID anyway)
 	
 	if ([contentArray count]==0) {
-		blogThread.pause = YES; // Pause until next time it comes back to this screen
 		return nil;
 	}
 	
@@ -214,10 +261,6 @@
 		}
 	}
 	
-	//Display upload message
-	if (returnPost!=nil) {
-		[self performSelector:@selector(showStatus:) onThread:[NSThread mainThread] withObject:[NSNumber numberWithInt:[contentArray count]] waitUntilDone:NO];
-	}
 	
 	
 	return returnPost;
@@ -233,21 +276,17 @@
 			[post deleteFromDatabase];
 		}
 	}
-	[self performSelector:@selector(hideStatus:) onThread:[NSThread mainThread] withObject:[NSNumber numberWithInt:[contentArray count]] waitUntilDone:NO];
+	[self hideStatus:[NSNumber numberWithInt:[contentArray count]]];
+	
+	//Now try again
+	[self uploadPost];
 }
-
--(void)newUploadError:(NSError *)err{
-	[self performSelector:@selector(hideStatus:) onThread:[NSThread mainThread] withObject:[NSNumber numberWithInt:[contentArray count]] waitUntilDone:NO];
-	[self performSelector:@selector(handleError:) onThread:[NSThread mainThread] withObject:err waitUntilDone:NO];
-}
-
 
 
 
 
 - (void)dealloc {
 	[contentArray release];
-	[blogThread release];
 	[reportListView release];
 	[creditView release];
 	[registerView release];

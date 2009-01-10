@@ -57,13 +57,12 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUIActivityIndicatorView" id="821130965">
 								<reference key="NSNextResponder" ref="519570204"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">-2147483356</int>
 								<string key="NSFrame">{{11, 7}, {20, 20}}</string>
 								<reference key="NSSuperview" ref="519570204"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<bool key="IBUIHidesWhenStopped">NO</bool>
 							</object>
 							<object class="IBUILabel" id="756794551">
 								<reference key="NSNextResponder" ref="519570204"/>
@@ -87,7 +86,7 @@
 								<int key="IBUITextAlignment">1</int>
 							</object>
 						</object>
-						<string key="NSFrame">{{0, 425}, {326, 35}}</string>
+						<string key="NSFrame">{{-1, 425}, {321, 35}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
@@ -190,7 +189,7 @@
 					<object class="IBUIButton" id="1020396538">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{282, 413}, {18, 19}}</string>
+						<string key="NSFrame">{{293, 432}, {18, 19}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -307,11 +306,11 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="930491283"/>
-							<reference ref="820414661"/>
 							<reference ref="99718507"/>
 							<reference ref="665432398"/>
-							<reference ref="519570204"/>
+							<reference ref="820414661"/>
 							<reference ref="1020396538"/>
+							<reference ref="519570204"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -394,7 +393,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>MainMenu</string>
 					<string>UIResponder</string>
-					<string>{{59, 156}, {320, 480}}</string>
+					<string>{{351, 139}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

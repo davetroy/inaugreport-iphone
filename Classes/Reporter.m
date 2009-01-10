@@ -49,7 +49,7 @@
 	} else {
 		errorMsg = @"Inauguration Report is unable to determine your location! Be sure you are not in airplane mode and have Wifi enabled, or please call our automated phone-based system!";
 	}
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Vote Report" message:errorMsg delegate:[[UIApplication sharedApplication] delegate]  cancelButtonTitle:@"Call Now" otherButtonTitles:@"Continue",nil];
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Inauguration Report" message:errorMsg delegate:[[UIApplication sharedApplication] delegate]  cancelButtonTitle:@"Call Now" otherButtonTitles:@"Continue",nil];
 	[alert show];
 }	
 

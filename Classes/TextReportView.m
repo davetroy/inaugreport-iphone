@@ -37,6 +37,16 @@
 	
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+	[super viewWillAppear:animated];
+	if (isNewReport){
+		captionTextField.text = nil;
+		storyTextView.text = nil;
+	}
+}
+
+
+
 
 /*
 // Override to allow orientations other than the default portrait orientation.
