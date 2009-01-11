@@ -40,7 +40,7 @@
 	NSLog(@"PhotoImageView=%@",photoImageView);
 	NSLog(@"PhotoImageView.image=%@",photoImageView.image);
 	
-	//if (photoImageView.image==nil) [self doTakePicture];
+	if (photoImageView.image==nil) [self doTakePicture];
 }
 
 - (void)reset {

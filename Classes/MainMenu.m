@@ -122,7 +122,7 @@
 	((PhotoReportView*)photoReportView).isNewReport = YES;
 	[((PhotoReportView*)photoReportView) reset];
 	[self presentModalViewController:photoReportView animated:YES];
-	[((PhotoReportView*)photoReportView) doTakePicture];
+	//[((PhotoReportView*)photoReportView) doTakePicture];
 	
 }
 
