@@ -69,7 +69,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 460}</string>
-				<object class="NSColor" key="IBUIBackgroundColor" id="399982068">
+				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MSAxIDEAA</bytes>
 				</object>
@@ -81,26 +81,19 @@
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUILabel" id="536597418">
+					<object class="IBUIImageView" id="524366188">
 						<reference key="NSNextResponder" ref="405393557"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{0, 11}, {320, 63}}</string>
+						<int key="NSvFlags">274</int>
+						<string key="NSFrame">{{0, 9}, {320, 60}}</string>
 						<reference key="NSSuperview" ref="405393557"/>
 						<bool key="IBUIOpaque">NO</bool>
-						<bool key="IBUIClipsSubviews">YES</bool>
+						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+						<int key="IBUIContentMode">6</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="IBUIText">Registration</string>
-						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">Georgia</string>
-							<double key="NSSize">3.600000e+01</double>
-							<int key="NSfFlags">16</int>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">reg.png</string>
 						</object>
-						<reference key="IBUITextColor" ref="399982068"/>
-						<nil key="IBUIHighlightedColor"/>
-						<int key="IBUIBaselineAdjustment">1</int>
-						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
-						<float key="IBUIMinimumFontSize">1.800000e+01</float>
-						<int key="IBUITextAlignment">1</int>
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 80}</string>
@@ -203,14 +196,14 @@
 						<reference key="object" ref="405393557"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="536597418"/>
+							<reference ref="524366188"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 						<string key="objectName">titleView</string>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">70</int>
-						<reference key="object" ref="536597418"/>
+						<int key="objectID">72</int>
+						<reference key="object" ref="524366188"/>
 						<reference key="parent" ref="405393557"/>
 					</object>
 				</object>
@@ -227,7 +220,7 @@
 					<string>54.IBPluginDependency</string>
 					<string>58.IBEditorWindowLastContentRect</string>
 					<string>58.IBPluginDependency</string>
-					<string>70.IBPluginDependency</string>
+					<string>72.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -237,7 +230,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{452, 305}, {320, 80}}</string>
+					<string>{{456, 421}, {320, 80}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
@@ -262,7 +255,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">71</int>
+			<int key="maxID">72</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

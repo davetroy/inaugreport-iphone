@@ -24,6 +24,7 @@
 
 @property (nonatomic, retain) Post *myPost;
 @property (nonatomic, assign) BOOL isNewReport;
+@property (nonatomic, retain, readonly) UIImageView *photoImageView;
 
 - (IBAction) doSubmit;
 - (IBAction) doCancel;

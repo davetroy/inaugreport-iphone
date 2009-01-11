@@ -47,7 +47,7 @@
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">inaug_report_no_seal_.png</string>
+							<string key="NSResourceName">inaug_report_no_txt_.png</string>
 						</object>
 					</object>
 					<object class="IBUIImageView" id="174259743">

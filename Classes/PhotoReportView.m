@@ -17,6 +17,7 @@
 
 @synthesize myPost;
 @synthesize isNewReport;
+@synthesize photoImageView;
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
@@ -34,7 +35,12 @@
 
 - (void)viewDidAppear:(BOOL)animated{
 	[super viewDidAppear:animated];
-	if (photoImageView.image==nil) [self doTakePicture];
+	NSLog(@"self=%@",self);
+	NSLog(@"self.view=%@",self.view);
+	NSLog(@"PhotoImageView=%@",photoImageView);
+	NSLog(@"PhotoImageView.image=%@",photoImageView.image);
+	
+	//if (photoImageView.image==nil) [self doTakePicture];
 }
 
 - (void)reset {
@@ -51,6 +57,7 @@
 		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
 		picker.delegate = self;
 		
+		NSLog(@"Before presenting self.view=%@",self.view);	
 		[self presentModalViewController:picker animated:YES];
 		isTakingPicture = YES;
 	}
@@ -65,6 +72,7 @@
 		picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 		picker.delegate = self;
 		
+		NSLog(@"Before presenting self.view=%@",self.view);	
 		[self presentModalViewController:picker animated:YES];
 		isTakingPicture = YES;
 	}
@@ -82,6 +90,7 @@
 												destructiveButtonTitle:nil 
 											    otherButtonTitles:@"Take a picture with camera", @"Pick from photo library",nil];
 	
+			NSLog(@"Showing action sheet in self.view:%@",self.view);
 			[aSheet showInView:self.view];
 			isShowing = YES;
 		}
@@ -138,6 +147,8 @@
 					break;
 			}	
 			if (self.myPost.image != photoImageView.image){ //The UIImage should point to the exact object if image did not change.
+				//Save image to photo libray first
+				UIImageWriteToSavedPhotosAlbum(photoImageView.image, nil, nil, nil);
 				self.myPost.image = [Util scaleAndRotateImage:photoImageView.image maxResolution:imagePixelSize]; //Set scale on this to make is slightly smaller and rotate correctly before saving to the database
 				self.myPost.thumbnail = [Util scaleAndRotateImage:photoImageView.image maxResolution:80];
 			}
@@ -186,6 +197,7 @@
 //////////////////////////////////////////////
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
 	NSLog(@"Selected %d",buttonIndex);
+	NSLog(@"ActionSheet comes back self.view=%@",self.view);
 	switch (buttonIndex) {
 		case 0:
 			[self takePicture];
@@ -207,7 +219,12 @@
 //////////////////////////////////////////////
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
+	NSLog(@"didFinishPickingImage self.view=%@",self.view);
+	NSLog(@"Image=%@",image);
+	NSLog(@"PhotoImageView=%@",photoImageView);
+	NSLog(@"PhotoImageView.image=%@",photoImageView.image);
 	photoImageView.image = image;
+	NSLog(@"PhotoImageView.image=%@",photoImageView.image);
 	[[picker parentViewController] dismissModalViewControllerAnimated:YES];	
 	isTakingPicture = NO;
 	

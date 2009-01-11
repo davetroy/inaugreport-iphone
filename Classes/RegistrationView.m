@@ -104,6 +104,7 @@
 	lastNameTextField = [[self createTextField_Rounded] retain];
 	emailTextField = [[self createTextField_Rounded] retain];
 	emailTextField.keyboardType = UIKeyboardTypeEmailAddress;
+	emailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 	zipTextField = [[self createTextField_Rounded] retain];
 	zipTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
 	agreementTextView = [[self createTextView] retain];
