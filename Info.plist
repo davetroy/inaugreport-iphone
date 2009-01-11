@@ -11,7 +11,7 @@
 	<key>CFBundleIconFile</key>
 	<string>Icon.png</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.zerion.apps.InaugReport</string>
+	<string>com.popvox.${PRODUCT_NAME}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -19,7 +19,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
-	<string>ZERN</string>
+	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1.0.0.0</string>
 	<key>LSRequiresIPhoneOS</key>
