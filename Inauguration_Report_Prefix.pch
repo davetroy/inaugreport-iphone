@@ -2,7 +2,7 @@
 // Prefix header for all source files of the 'Inauguration Report' target in the 'Inauguration Report' project
 //
 #define REPORTS_URL					@"http://realtypub.dyndns.org:3000/reports.iphone"
-#define REACHABILITY_TEST_URL		@"http://realtypub.dyndns.org"
+#define REACHABILITY_TEST_URL		@"http://inaug09reports.twittervision.com"
 #define REPORTS_KML_URL				@"maps:q=http://inaugurationreport.com/reports.kml?near=%.3f,%.3f&iphone=1"
 
 #ifdef __OBJC__

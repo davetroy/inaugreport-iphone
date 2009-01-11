@@ -57,6 +57,8 @@
 	NSString *lastName  =  [defaults objectForKey:DEFAULTKEY_LASTNAME];
 	if (!([firstName length]>0 && [lastName length]>0)) [self doRegister];
 	
+	currentPostIndex = -1; //So upload starts from top
+	[self loadContent]; //Load from the databae once per screen show.
 	[self uploadPost];
 }
 
@@ -209,14 +211,29 @@
 		
 		[self showStatus:[NSNumber numberWithInt:[contentArray count]]];
 		
+	} else { //Upload is done. See if the queue is empty.
+		[self loadContent]; //Reload from the database
+		if ([contentArray count] > 0) {
+			reportSubmitView.hidden = NO;
+			reportSubmitViewLabel.text = [NSString stringWithFormat:@"%d report%@ in queue",[contentArray count], [contentArray count]>1?@"s":@""];
+			[reportSubmitViewSpinner stopAnimating];
+		}
 	}
-		
-	
 }
 
 - (void) uploadCompleted{
 	
 	BOOL success = [BlogProxy sharedInstance].reporter.successful;
+	
+	//Remove the following after test. Everyother post will fail.
+	/*
+	if (success){
+		isForceFail = !isForceFail;
+		success = !isForceFail;
+		if (isForceFail) NSLog(@"TESTING FORCE FAIL!");
+	}
+	*/
+	
 	
 	if (success){ //Update the uploadstatus
 		NSLog(@"Upload Successful.");
@@ -232,9 +249,9 @@
 
 
 -(Post *)getNextUploadPost{
-	[self loadContent]; //Since we don't expect a big queue, just reload from the database. (Just the ID anyway)
+	currentPostIndex++;
 	
-	if ([contentArray count]==0) {
+	if ([contentArray count]==0 || currentPostIndex < 0 || currentPostIndex >= [contentArray count]) {
 		return nil;
 	}
 	
@@ -242,26 +259,26 @@
 
 	//Prevent the main thread from updating or deleting any Post while the Blog thread gets the next post for upload
 	@synchronized([BlogProxy sharedInstance]){ //Use the blogProxy as a common lock token
-		Post *myPost;
-		for (myPost in contentArray){
+		Post *myPost=nil;
+		while (returnPost==nil && currentPostIndex < [contentArray count]){
+			myPost = (Post*)[contentArray objectAtIndex:currentPostIndex];
+			if (myPost==nil) return nil; //Should not happen, but just in case.
+			
 			[myPost load];
 			
-			NSLog(@"GETNEXTUPADLOPOST TITLE=%@",myPost.title);
+			NSLog(@"GETNEXTUPADLOPOST INDEX=%d TITLE=%@",currentPostIndex, myPost.title);
 			if (myPost.uploadIndicator==POSTUPLOADINDICATOR_UPLOADING) {
 				returnPost = myPost;
-				break;
-			}
-			
-			if (myPost.uploadIndicator==POSTUPLOADINDICATOR_WAITING){
+			} else if (myPost.uploadIndicator==POSTUPLOADINDICATOR_WAITING){
 				myPost.uploadIndicator = POSTUPLOADINDICATOR_UPLOADING;
 				[myPost save];
 				returnPost = myPost;
-				break;
+			} else { //This should not happen in this project.
+				NSLog(@"ERROR: Post[%d] already uploaded but still in the database. Skipping",myPost.primaryKey);
+				currentPostIndex++;
 			}
 		}
 	}
-	
-	
 	
 	return returnPost;
 	

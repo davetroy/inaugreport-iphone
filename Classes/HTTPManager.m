@@ -105,7 +105,13 @@
 {
     // do something with the data
     printf("Succeeded! Received %d bytes of data\n",[receivedData length]);
-	successful = YES;
+	NSString *receivedStr = [[[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding] autorelease];
+	NSLog(@"Received:%@",receivedStr);
+	
+	if ([receivedStr isEqualToString:@"OK"])
+		successful = YES;
+	else 
+		successful = NO;
 	
     // release the connection
     [connection release];

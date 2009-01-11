@@ -15,6 +15,7 @@
 	SEL targetSelector;
 	id userData;
 	NSURLConnection *myConnection;
+	
 }
 
 -(void)performRequestWithMethod:(NSString *)method

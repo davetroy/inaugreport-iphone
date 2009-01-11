@@ -25,7 +25,9 @@
 	NSMutableArray *contentArray;
 	
 	Post *currentPost;
+	int currentPostIndex;
 	
+	BOOL isForceFail; //For testing only.
 
 }
 
