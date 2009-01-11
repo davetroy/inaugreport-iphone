@@ -25,6 +25,8 @@
 	captionTextField.returnKeyType = UIReturnKeyDone;
 	captionTextField.autocorrectionType = UITextAutocorrectionTypeYes;
 	captionTextField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+	captionTextField.clearsOnBeginEditing = NO;
+	
 	isShowing = NO;
 	isTakingPicture = NO;
 }

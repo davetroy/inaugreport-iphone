@@ -47,7 +47,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	reportSubmitView.hidden = YES;
-
+	unreachableNoteShown = NO;	
 }
 
 - (void)viewDidAppear:(BOOL)a{
@@ -184,19 +184,11 @@
 	
 	//Pick the first unuploaded Post object from the database 
 	currentPost = [[self getNextUploadPost] retain];
+	NetworkStatus status = [[Reachability sharedReachability] internetConnectionStatus];
 	
-	NSLog(@"UPLOAD: Got Post [%@]",currentPost);		
-	if (currentPost != nil) {
+	if (currentPost != nil && status!=NotReachable) {
+		NSLog(@"Uploading Post [%@]",currentPost);		
 
-		NetworkStatus status = [[Reachability sharedReachability] internetConnectionStatus];
-		if (status==NotReachable) { //Special case.
-			reportSubmitView.hidden = NO;
-			reportSubmitViewLabel.text = [NSString stringWithFormat:@"%d report%@ in queue",[contentArray count], [contentArray count]>1?@"s":@""];
-			[reportSubmitViewSpinner stopAnimating];
-			return;
-		}
-		
-		
 		
 		[currentPost load];
 		[currentPost loadImage];
@@ -213,13 +205,21 @@
 		
 		[self showStatus:[NSNumber numberWithInt:[contentArray count]]];
 		
-	} else { //Upload is done. See if the queue is empty.
+	} else { //Upload is done. Or not reable. See if the queue is empty.
 		[self loadContent]; //Reload from the database
 		if ([contentArray count] > 0) {
 			reportSubmitView.hidden = NO;
 			reportSubmitViewLabel.text = [NSString stringWithFormat:@"%d report%@ in queue",[contentArray count], [contentArray count]>1?@"s":@""];
 			[reportSubmitViewSpinner stopAnimating];
 		}
+		[UIApplication sharedApplication].applicationIconBadgeNumber =  [contentArray count];
+		
+		if (status==NotReachable && !unreachableNoteShown) { 
+			[Util handleMsg:@"Cannot connect to the internet. You can continue to create reports and they will be saved locally. Restart the application when internet connection is available to upload reports." withTitle:@"Connection Error"];
+			unreachableNoteShown = YES;
+		}
+		
+		
 	}
 }
 

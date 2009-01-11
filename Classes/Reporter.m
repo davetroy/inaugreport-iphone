@@ -41,6 +41,8 @@
 // deal with any errors - fail if we are not allowed to use location
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
+	NSLog(@"Ignoring location error:%@", error);
+	/*
 	NSString *errorMsg;
 	if (error.code ==  kCLErrorDenied) {
 		errorMsg = @"Inauguration Report requires access to your location to work properly! Please call our automated phone-based system instead!";
@@ -49,6 +51,7 @@
 	}
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Inauguration Report" message:errorMsg delegate:[[UIApplication sharedApplication] delegate]  cancelButtonTitle:@"Call Now" otherButtonTitles:@"Continue",nil];
 	[alert show];
+	*/
 }	
 
 
@@ -79,22 +82,26 @@
 	NSString *lastName  =  [defaults objectForKey:DEFAULTKEY_LASTNAME];
 	NSString *email     =  [defaults objectForKey:DEFAULTKEY_EMAIL];
 	NSString *zipCode   =  [defaults objectForKey:DEFAULTKEY_ZIP];
-	NSString *agree     =  [(NSNumber*)[defaults objectForKey:DEFAULTKEY_AGREE] stringValue];
 	NSString *udid      =  [[UIDevice currentDevice] uniqueIdentifier];
+	NSString *gpsStr    =  [NSString stringWithFormat:@"%.3f,%.3f:%.0f",
+							location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy ];
+	
 
 	[params addEntriesFromDictionary:
 		[NSDictionary dictionaryWithObjectsAndKeys:
-		udid, @"reporter[uniqueid]",
+		 udid,      @"reporter[uniqueid]",
 		 firstName, @"reporter[firstname]",
-		 lastName, @"reporter[lastname]",
-		 email, @"reporter[email]",
-		 zipCode, @"reporter[zipcode]",
-		 agree, @"reporter[agree]",
-		[NSString stringWithFormat:@"%.3f,%.3f:%.0f",
-		 location.coordinate.latitude, location.coordinate.longitude, location.horizontalAccuracy ],
-		@"report[latlon]",
-		nil]
+		 lastName,  @"reporter[lastname]",
+		 email,     @"reporter[email]",
+		 zipCode,   @"reporter[zipcode]",
+		 nil]
 	];
+	if (location.horizontalAccuracy > 0) {
+		NSLog(@"Posting with GPS info: [%@]",gpsStr);
+		[params setValue:gpsStr forKey:@"report[latlon]"];
+	} else {
+		NSLog(@"Not posting GPS info: [%@]",gpsStr);	
+	}
 	
 	HTTPManager *httpRequest = [[HTTPManager alloc] init];
 	httpRequest.target = self;

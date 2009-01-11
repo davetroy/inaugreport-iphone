@@ -28,6 +28,7 @@
 	int currentPostIndex;
 	
 	BOOL isForceFail; //For testing only.
+	BOOL unreachableNoteShown;
 
 }
 

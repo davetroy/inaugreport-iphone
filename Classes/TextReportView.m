@@ -23,6 +23,7 @@
 	captionTextField.returnKeyType = UIReturnKeyDone;
 	captionTextField.autocorrectionType = UITextAutocorrectionTypeYes;
 	captionTextField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+	captionTextField.clearsOnBeginEditing = NO;
 	storyTextView.delegate = self;
 	
 	toolBar = [[[UIToolbar alloc] initWithFrame:CGRectMake(0,self.view.frame.size.height- kOFFSET_FOR_KEYBOARD-44, 320, 44)] retain];
