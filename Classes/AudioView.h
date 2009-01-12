@@ -70,6 +70,7 @@ extern NSString *kCellAudio_ID;
 - (IBAction) playOrStop: (id) sender;
 - (void) pausePlayback;
 - (void) resumePlayback;
+- (void) resetFile;
 
 
 @end

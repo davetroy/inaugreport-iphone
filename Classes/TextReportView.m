@@ -10,6 +10,7 @@
 #import "Constants.h"
 #import "DbHelper.h"
 #import "BlogProxy.h"
+#import "Util.h"
 
 
 @implementation TextReportView
@@ -65,6 +66,11 @@
 	
 	if (self.myPost==nil) isNew = YES; 
 	else isNew = NO;
+	
+	if ([captionTextField.text length]==0 && [storyTextView.text length]==0){
+		[Util handleMsg:@"Please enter either title or report body." withTitle:@"Error"];
+		return;
+	}
 	
 	if (self.myPost==nil &&
 		([captionTextField.text length] > 0 || [storyTextView.text length] > 0)

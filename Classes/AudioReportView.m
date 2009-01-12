@@ -10,6 +10,7 @@
 #import "Constants.h"
 #import "DbHelper.h"
 #import "BlogProxy.h"
+#import "Util.h"
 
 
 @implementation AudioReportView
@@ -39,6 +40,11 @@
     [super viewDidLoad];
 	audioCell = [[[AudioView alloc] initWithFrame:CGRectMake(10, 100, 310, 200)] retain]; 
 	[self.view addSubview:audioCell];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+	[super viewWillAppear:animated];
+	[audioCell resetFile]; //Make sure the file is empty
 }
 
 
@@ -72,6 +78,11 @@
 	NSString *tmpSoundPath = [audioCell.soundFileURL path];
 	NSData *fileData = [NSData dataWithContentsOfFile:tmpSoundPath];
 	
+	if (!fileData) {
+		[Util handleMsg:@"Please record your audio report." withTitle:@"Error"];
+		[self performSelectorInBackground:@selector(stopSpin) withObject:nil];	
+		return;
+	}
 	
 	if (self.myPost==nil && fileData) 
 	{

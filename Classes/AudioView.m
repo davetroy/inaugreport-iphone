@@ -73,36 +73,7 @@ NSString *kCellAudio_ID = @"CellAudio_ID";
 
 - (id)initWithFrame:(CGRect)frame  {
     if (self = [super initWithFrame:frame ]) {
-		// this app uses a fixed file name at a fixed location, so it makes sense to set the name and 
-		// URL here.
-		NSArray *filePaths =	NSSearchPathForDirectoriesInDomains (
-																	 
-																	 NSDocumentDirectory, 
-																	 NSUserDomainMask,
-																	 YES
-																	 ); 
-		
-		self.recordingDirectory = [filePaths objectAtIndex: 0];
-		
-		CFStringRef fileString = (CFStringRef) [NSString stringWithFormat: @"%@/Recording.caf", self.recordingDirectory];
-		
-		//Delete previous audio report
-		[[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat: @"%@/Recording.caf", self.recordingDirectory] error:NULL];
-
-		// create the file URL that identifies the file that the recording audio queue object records into
-		CFURLRef fileURL =	CFURLCreateWithFileSystemPath (
-														   NULL,
-														   fileString,
-														   kCFURLPOSIXPathStyle,
-														   false
-														   );
-		NSLog (@"Recorded file path: %@", fileURL); // shows the location of the recorded file
-		
-		// save the sound file URL as an object attribute (as an NSURL object)
-		if (fileURL) {
-			self.soundFileURL	= (NSURL *) fileURL;
-			CFRelease (fileURL);
-		}
+		[self resetFile];
 		
 		// allocate memory to hold audio level values
 		audioLevels = calloc (2, sizeof (AudioQueueLevelMeterState));
@@ -136,6 +107,41 @@ NSString *kCellAudio_ID = @"CellAudio_ID";
 
     }
     return self;
+}
+
+- (void) resetFile {
+	// this app uses a fixed file name at a fixed location, so it makes sense to set the name and 
+	// URL here.
+	NSArray *filePaths =	NSSearchPathForDirectoriesInDomains (
+																 
+																 NSDocumentDirectory, 
+																 NSUserDomainMask,
+																 YES
+																 ); 
+	
+	self.recordingDirectory = [filePaths objectAtIndex: 0];
+	
+	CFStringRef fileString = (CFStringRef) [NSString stringWithFormat: @"%@/Recording.caf", self.recordingDirectory];
+	
+	//Delete previous audio report
+	[[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat: @"%@/Recording.caf", self.recordingDirectory] error:NULL];
+	
+	// create the file URL that identifies the file that the recording audio queue object records into
+	CFURLRef fileURL =	CFURLCreateWithFileSystemPath (
+													   NULL,
+													   fileString,
+													   kCFURLPOSIXPathStyle,
+													   false
+													   );
+	NSLog (@"Recorded file path: %@", fileURL); // shows the location of the recorded file
+	
+	// save the sound file URL as an object attribute (as an NSURL object)
+	if (fileURL) {
+		self.soundFileURL	= (NSURL *) fileURL;
+		CFRelease (fileURL);
+	}
+	[self.playButton setEnabled: NO];
+
 }
 
 - (void) addBargraphToView: (UIView *) parentView {
