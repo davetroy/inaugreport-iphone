@@ -17,6 +17,7 @@
 	
 	BOOL isShowing; //work around for multiple call to 
 	BOOL isTakingPicture;
+	BOOL shouldSavetoAlbum;
 	
 	Post *myPost;
 	BOOL isNewReport;

@@ -47,7 +47,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	reportSubmitView.hidden = YES;
-	unreachableNoteShown = NO;	
 }
 
 - (void)viewDidAppear:(BOOL)a{
@@ -64,6 +63,7 @@
 
 - (void)viewDidDisappear:(BOOL)a{
 	[super viewDidDisappear:a];
+	[self hideStatus];
 }
 
 /*
@@ -163,12 +163,15 @@
     
 }
 
+//This selector is run in the background
 - (void) showStatus:(id)numInQueue{
-	reportSubmitViewLabel.text = [NSString stringWithFormat:@"Uploading report (%@ in queue)...",numInQueue];
+    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];	
+	reportSubmitViewLabel.text = [NSString stringWithFormat:@"Uploading report (%d/%@ in queue)...",currentPostIndex+1,numInQueue];
 	reportSubmitView.hidden = NO;
 	[reportSubmitViewSpinner startAnimating];
+	[pool release];
 }
-- (void) hideStatus:(id)numInQueue{
+- (void) hideStatus{
 	reportSubmitView.hidden = YES;
 	[reportSubmitViewSpinner stopAnimating];
 }
@@ -203,7 +206,7 @@
 		myBlogProxy.reporter.targetSelector = @selector(uploadCompleted);
 		[myBlogProxy sendPostToServer:currentPost];
 		
-		[self showStatus:[NSNumber numberWithInt:[contentArray count]]];
+		[self performSelectorInBackground:@selector(showStatus:) withObject:[NSNumber numberWithInt:[contentArray count]]];
 		
 	} else { //Upload is done. Or not reable. See if the queue is empty.
 		[self loadContent]; //Reload from the database
@@ -213,10 +216,10 @@
 			[reportSubmitViewSpinner stopAnimating];
 		}
 		[UIApplication sharedApplication].applicationIconBadgeNumber =  [contentArray count];
-		
-		if (status==NotReachable && !unreachableNoteShown) { 
+		BOOL noteShown = ((Inauguration_ReportAppDelegate *)[[UIApplication sharedApplication] delegate]).unreachableNoteShown;
+		if (status==NotReachable && !noteShown) { 
+			((Inauguration_ReportAppDelegate *)[[UIApplication sharedApplication] delegate]).unreachableNoteShown = YES;
 			[Util handleMsg:@"Cannot connect to the internet. You can continue to create reports and they will be saved locally. Restart the application when internet connection is available to upload reports." withTitle:@"Connection Error"];
-			unreachableNoteShown = YES;
 		}
 		
 		
@@ -227,22 +230,14 @@
 	
 	BOOL success = [BlogProxy sharedInstance].reporter.successful;
 	
-	//Remove the following after test. Everyother post will fail.
-	/*
-	if (success){
-		isForceFail = !isForceFail;
-		success = !isForceFail;
-		if (isForceFail) NSLog(@"TESTING FORCE FAIL!");
-	}
-	*/
-	
-	
 	if (success){ //Update the uploadstatus
 		NSLog(@"Upload Successful.");
 		currentPost.uploadIndicator = POSTUPLOADINDICATOR_DONE;
 	} else {
 		NSLog(@"Upload Failed.");
 		currentPost.uploadIndicator = POSTUPLOADINDICATOR_WAITING; //RESET. will try again later
+		currentPost.v_accuracy +=1.0; //using this as fail count.
+		NSLog(@"Fail Count = %f",currentPost.v_accuracy);
 	}
 	
 	[self newUploadStatus:currentPost];
@@ -300,10 +295,9 @@
 			}
 			NSLog(@"Deleting post[%d:%@]",post.primaryKey,post.title);
 			[post deleteFromDatabase];
-			
-		}
+		} 			
 	}
-	[self hideStatus:[NSNumber numberWithInt:[contentArray count]]];
+	[self hideStatus];
 	
 	//Now try again
 	[self uploadPost];

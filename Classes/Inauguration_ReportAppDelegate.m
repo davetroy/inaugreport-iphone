@@ -15,6 +15,7 @@
 
 @synthesize window;
 @synthesize viewController;
+@synthesize unreachableNoteShown;
 
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
@@ -24,7 +25,6 @@
     [window makeKeyAndVisible];
 
 	[[Reachability sharedReachability] setHostName:REACHABILITY_TEST_URL];
-	
 }
 
 

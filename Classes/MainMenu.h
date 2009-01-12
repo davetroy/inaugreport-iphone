@@ -28,7 +28,6 @@
 	int currentPostIndex;
 	
 	BOOL isForceFail; //For testing only.
-	BOOL unreachableNoteShown;
 
 }
 
@@ -42,5 +41,7 @@
 - (void) uploadPost;
 - (void) newUploadStatus:(Post *)post;
 - (Post *) getNextUploadPost;
+- (void) showStatus:(id)numInQueue;
+- (void) hideStatus;
 
 @end

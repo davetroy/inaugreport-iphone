@@ -11,6 +11,7 @@
 #import "DbHelper.h"
 #import "Constants.h"
 #import "Util.h"
+#import "Reachability.h"
 
 
 @implementation PhotoReportView
@@ -37,10 +38,6 @@
 
 - (void)viewDidAppear:(BOOL)animated{
 	[super viewDidAppear:animated];
-	NSLog(@"self=%@",self);
-	NSLog(@"self.view=%@",self.view);
-	NSLog(@"PhotoImageView=%@",photoImageView);
-	NSLog(@"PhotoImageView.image=%@",photoImageView.image);
 	
 	if (photoImageView.image==nil) [self doTakePicture];
 }
@@ -109,7 +106,7 @@
 
 - (IBAction) doSubmit {
 	[self performSelectorInBackground:@selector(startSpin) withObject:nil];
-	
+
 	//Save to database
 	[[DbHelper sharedInstance] initializeDatabase];
 	sqlite3 *db = [DbHelper sharedInstance].database;
@@ -133,26 +130,12 @@
 		{
 			if (![self.myPost.title isEqualToString:captionTextField.text]) self.myPost.title = captionTextField.text;
 			
-			NSNumber *imageSize = [[NSUserDefaults standardUserDefaults] objectForKey:DEFAULTKEY_IMGSIZE];
-			int imagePixelSize; 
-			switch ([imageSize intValue]) {
-				case 0:
-					imagePixelSize = 300;
-					break;
-				case 1:
-					imagePixelSize = 600;
-					break;
-				case 2:
-					imagePixelSize = photoImageView.image.size.width;
-					break;
-				default:
-					break;
-			}	
+			int imagePixelSize = 1000; //1600 is max. 
 			if (self.myPost.image != photoImageView.image){ //The UIImage should point to the exact object if image did not change.
 				//Save image to photo libray first
-				UIImageWriteToSavedPhotosAlbum(photoImageView.image, nil, nil, nil);
+				if (shouldSavetoAlbum) UIImageWriteToSavedPhotosAlbum(photoImageView.image, nil, nil, nil);
+				NSLog(@"Saclng Photo to :%d", imagePixelSize);
 				self.myPost.image = [Util scaleAndRotateImage:photoImageView.image maxResolution:imagePixelSize]; //Set scale on this to make is slightly smaller and rotate correctly before saving to the database
-				self.myPost.thumbnail = [Util scaleAndRotateImage:photoImageView.image maxResolution:80];
 			}
 			
 			//Get current location
@@ -200,9 +183,11 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
 	NSLog(@"Selected %d",buttonIndex);
 	NSLog(@"ActionSheet comes back self.view=%@",self.view);
+	shouldSavetoAlbum = NO;
 	switch (buttonIndex) {
 		case 0:
 			[self takePicture];
+			shouldSavetoAlbum = YES;
 			break;
 		case 1:
 			[self pickPicture];
